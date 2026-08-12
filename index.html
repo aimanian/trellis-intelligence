@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trellis — the reasoning framework for mission-driven intelligence</title>
+<meta name="description" content="Trellis Intelligence turns fragmented operational data — records, documents, voice, sensors — into one connected, explainable reasoning graph. Five live demos on real data: aviation, patents, weather, program management, and health.">
+<style>
+  :root {
+    --bg: #0a1224; --bg-elev: #111c36; --bg-card: #16244a;
+    --accent: #4cc9f0; --accent-2: #f72585; --accent-3: #ffb703;
+    --text: #e9eef5; --text-mute: #9eb0c8; --border: #243a64; --good: #6ad88a;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: -apple-system, "Segoe UI", system-ui, sans-serif; background: var(--bg); color: var(--text); margin: 0; line-height: 1.55; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+  a { color: inherit; }
+  .mono { font-family: 'SF Mono', 'Roboto Mono', Consolas, monospace; }
+
+  /* Nav */
+  nav { position: sticky; top: 0; z-index: 100; background: rgba(10,18,36,0.82); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); }
+  nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 62px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; font-size: 15px; text-decoration: none; }
+  .brand .dot { width: 10px; height: 10px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--accent-2)); box-shadow: 0 0 12px rgba(76,201,240,0.6); }
+  .brand small { font-size: 9px; letter-spacing: 0.18em; color: var(--text-mute); display: block; font-weight: 600; }
+  .navlinks { display: flex; gap: 26px; align-items: center; }
+  .navlinks a { text-decoration: none; color: var(--text-mute); font-size: 14px; font-weight: 500; transition: color .15s; }
+  .navlinks a:hover { color: var(--accent); }
+  .navlinks a.cta { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #06091a; padding: 8px 16px; border-radius: 100px; font-weight: 700; }
+  @media (max-width: 820px) { .navlinks a:not(.cta) { display: none; } }
+
+  /* Hero */
+  header { background: radial-gradient(900px 400px at 50% -5%, rgba(76,201,240,0.12), transparent 70%), linear-gradient(165deg, #0a1224 0%, #0e1830 55%, #16244a 100%); padding: 84px 24px 66px; text-align: center; border-bottom: 1px solid var(--border); }
+  .eyebrow { display: inline-block; background: rgba(255,255,255,0.06); padding: 6px 15px; border-radius: 100px; font-size: 11.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); border: 1px solid rgba(255,255,255,0.12); margin-bottom: 22px; }
+  h1.hero { font-size: 60px; margin: 0; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 700; line-height: 1.05; }
+  .hero-underline { width: 180px; height: 1px; margin: 14px auto 0; background: linear-gradient(90deg, transparent, var(--accent), transparent); }
+  .hero-tagline { font-size: 22px; font-weight: 400; max-width: 720px; margin: 22px auto 0; background: linear-gradient(90deg, #4cc9f0, #f72585); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .hero-sub { font-size: 18px; color: var(--text-mute); max-width: 720px; margin: 20px auto 0; }
+  .hero-btns { display: flex; gap: 14px; justify-content: center; margin-top: 34px; flex-wrap: wrap; }
+  .btn { display: inline-block; text-decoration: none; padding: 13px 26px; border-radius: 100px; font-weight: 700; font-size: 15px; transition: transform .15s, box-shadow .15s; cursor: pointer; border: none; }
+  .btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #06091a; box-shadow: 0 8px 24px rgba(76,201,240,0.25); }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(76,201,240,0.4); }
+  .btn-ghost { border: 1px solid var(--border); color: var(--text); background: transparent; }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+  section { padding: 74px 0; }
+  section.alt { background: var(--bg-elev); }
+  h2 { font-size: 30px; text-align: center; margin: 0 0 10px; font-weight: 700; letter-spacing: -0.01em; }
+  h2 .sub { display: block; font-weight: 400; font-size: 17px; color: var(--text-mute); margin-top: 8px; max-width: 820px; margin-left: auto; margin-right: auto; }
+  .intro { color: var(--text-mute); font-size: 16px; max-width: 780px; margin: 0 auto 40px; text-align: center; }
+
+  /* Domain cards = clickable tabs */
+  .domain-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-top: 34px; }
+  @media (max-width: 900px) { .domain-row { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 560px) { .domain-row { grid-template-columns: repeat(2, 1fr); } }
+  .dcard { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 15px; cursor: pointer; transition: transform .15s, border-color .15s, box-shadow .15s; position: relative; text-align: left; }
+  .dcard:hover { transform: translateY(-3px); border-color: var(--accent); }
+  .dcard.active { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent), 0 12px 30px rgba(76,201,240,0.22); }
+  .dcard.active::after { content: "▾ demo below"; position: absolute; top: 12px; right: 12px; font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); font-weight: 700; }
+  .dcard .ic { font-size: 26px; margin-bottom: 10px; }
+  .dcard .nm { font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 6px; }
+  .dcard .ds { font-size: 12px; color: var(--text-mute); margin-bottom: 12px; min-height: 48px; }
+  .pill { display: inline-block; font-size: 9.5px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; padding: 4px 8px; border-radius: 100px; background: rgba(106,216,138,0.14); color: var(--good); border: 1px solid rgba(106,216,138,0.4); }
+
+  /* Demo shell */
+  .demo-shell { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.4); margin-top: 28px; }
+  .demo-bar { display: flex; align-items: center; gap: 8px; padding: 12px 18px; background: rgba(0,0,0,0.25); border-bottom: 1px solid var(--border); }
+  .demo-bar .d { width: 11px; height: 11px; border-radius: 50%; }
+  .demo-bar .d1 { background: #ff5f57; } .demo-bar .d2 { background: #febc2e; } .demo-bar .d3 { background: #28c840; }
+  .demo-bar .title { margin-left: 10px; font-size: 12px; color: var(--text-mute); }
+  .demo-bar .live { margin-left: auto; font-size: 10.5px; font-weight: 700; letter-spacing: 0.1em; color: var(--good); text-transform: uppercase; display: flex; align-items: center; gap: 6px; }
+  .demo-bar .live .blip { width: 7px; height: 7px; border-radius: 50%; background: var(--good); animation: blip 1.6s infinite; }
+  @keyframes blip { 0%,100%{opacity:1} 50%{opacity:.25} }
+  .demo-body { padding: 24px; }
+  .ask-row { display: flex; gap: 12px; align-items: stretch; flex-wrap: wrap; }
+  .ask-input { flex: 1 1 340px; background: rgba(0,0,0,0.28); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; font-size: 14.5px; color: var(--text); line-height: 1.4; }
+  .ask-input .q-label { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
+  .run-btn { flex: 0 0 auto; background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #06091a; border: none; border-radius: 10px; padding: 0 26px; font-weight: 700; font-size: 15px; cursor: pointer; transition: transform .12s, box-shadow .12s; }
+  .run-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 22px rgba(76,201,240,0.35); }
+  .run-btn:disabled { opacity: .5; cursor: default; transform: none; box-shadow: none; }
+
+  .steps { margin-top: 22px; display: flex; flex-direction: column; gap: 14px; }
+  .step { opacity: 0; transform: translateY(10px); transition: opacity .5s ease, transform .5s ease; }
+  .step.show { opacity: 1; transform: translateY(0); }
+  .step-card { display: flex; gap: 14px; background: rgba(0,0,0,0.22); border: 1px solid var(--border); border-left: 3px solid var(--c, var(--accent)); border-radius: 0 10px 10px 0; padding: 16px 18px; }
+  .step-card.verdict { background: rgba(106,216,138,0.07); }
+  .step-icon { font-size: 22px; flex: 0 0 auto; width: 30px; text-align: center; }
+  .step-main { flex: 1 1 auto; min-width: 0; }
+  .step-k { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--c, var(--accent)); font-weight: 700; margin-bottom: 5px; }
+  .step-title { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+  .step-body { font-size: 13.5px; color: var(--text-mute); }
+  .step-body b { color: var(--text); }
+  .quote { color: var(--text); background: rgba(255,255,255,0.05); border-radius: 6px; padding: 8px 12px; margin: 8px 0; font-size: 14px; font-style: italic; }
+  .quote.plain { font-style: normal; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 4px; }
+  .chip { font-family: 'SF Mono', Consolas, monospace; font-size: 11px; font-weight: 700; padding: 4px 9px; border-radius: 6px; background: rgba(76,201,240,0.13); border: 1px solid rgba(76,201,240,0.4); color: var(--text); white-space: nowrap; }
+  .prov { font-family: 'SF Mono', Consolas, monospace; font-size: 10.5px; color: var(--good); margin-top: 9px; }
+  .match { color: var(--good); font-weight: 700; }
+  .demo-graph svg { display: block; width: 100%; height: auto; }
+  .gline { stroke: rgba(158,176,200,0.4); stroke-width: 1.4; opacity: 0; transition: opacity .7s; }
+  .gline.show { opacity: 1; }
+  .demo-note { font-size: 11.5px; color: var(--text-mute); text-align: center; margin-top: 16px; }
+  .demo-note code { color: var(--accent); background: rgba(76,201,240,0.1); padding: 1px 5px; border-radius: 3px; }
+
+  /* capability */
+  .cap-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 34px; }
+  @media (max-width: 900px) { .cap-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 520px) { .cap-grid { grid-template-columns: 1fr; } }
+  .cap-card { background: var(--bg-card); border: 1px solid var(--border); border-top: 3px solid var(--accent); border-radius: 12px; padding: 20px; }
+  .cap-card .k { font-size: 10.5px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent-3); margin-bottom: 10px; }
+  .cap-card h3 { margin: 0 0 8px; font-size: 16px; }
+  .cap-card p { margin: 0; font-size: 13px; color: var(--text-mute); line-height: 1.5; }
+
+  /* platform */
+  .val-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px,1fr)); gap: 16px; margin-bottom: 30px; }
+  .val-card { background: var(--bg-card); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 0 12px 12px 0; padding: 20px; }
+  .val-card .h { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; font-weight: 700; margin-bottom: 8px; }
+  .val-card p { margin: 0; font-size: 13.5px; color: var(--text-mute); line-height: 1.55; }
+  .val-card p b { color: var(--text); }
+  .plat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px,1fr)); gap: 16px; }
+  .plat-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 22px; }
+  .plat-card .nm { font-size: 15px; font-weight: 700; }
+  .plat-card .rep { font-size: 11.5px; color: var(--text-mute); margin: 4px 0 12px; }
+  .plat-card .df { border-top: 1px solid var(--border); padding-top: 12px; font-size: 13.5px; line-height: 1.55; }
+  .plat-card .df b { color: var(--accent); }
+
+  /* CTA */
+  .cta-box { background: linear-gradient(150deg, #16244a, #0e1830); border: 1px solid var(--border); border-radius: 16px; padding: 44px 34px; text-align: center; }
+  .cta-team { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; margin: 30px 0; text-align: left; }
+  @media (max-width: 720px) { .cta-team { grid-template-columns: repeat(2,1fr); } }
+  .cta-team .t { background: rgba(0,0,0,0.2); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+  .cta-team .t .n { font-size: 26px; font-weight: 700; color: var(--accent); }
+  .cta-team .t:nth-child(2) .n { color: var(--accent-2); }
+  .cta-team .t:nth-child(3) .n { color: var(--accent-3); }
+  .cta-team .t:nth-child(4) .n { color: var(--good); }
+  .cta-team .t .l { font-size: 12px; color: var(--text-mute); margin-top: 4px; }
+
+  footer { background: #06091a; border-top: 1px solid var(--border); padding: 44px 24px; text-align: center; color: var(--text-mute); }
+  footer .fbrand { font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text); }
+  footer .fsmall { font-size: 11px; color: #5a6e87; max-width: 740px; margin: 14px auto 0; }
+  footer a { color: var(--accent); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="#top"><span class="dot"></span>Trellis<small>Intelligence LLC</small></a>
+    <div class="navlinks">
+      <a href="#domains">Domains &amp; demos</a>
+      <a href="#how">How it works</a>
+      <a href="#why">Why Trellis</a>
+      <a class="cta" href="#contact">Talk to us</a>
+    </div>
+  </div>
+</nav>
+
+<header id="top">
+  <div class="wrap">
+    <span class="eyebrow">Trellis Intelligence</span>
+    <h1 class="hero">Trellis</h1>
+    <div class="hero-underline"></div>
+    <p class="hero-tagline">the reasoning framework on which mission-driven intelligence grows</p>
+    <p class="hero-sub">Every organization has the data. Reasoning across it still happens in people's heads. Trellis is the missing layer — a mission-configured reasoning system that fuses records, documents, voice, and sensors into one connected graph, where every answer arrives with its evidence.</p>
+    <div class="hero-btns">
+      <a class="btn btn-primary" href="#domains">▶  See the live demos</a>
+      <a class="btn btn-ghost" href="#how">How it works</a>
+    </div>
+  </div>
+</header>
+
+<!-- ============ DOMAINS + LIVE DEMOS ============ -->
+<section id="domains">
+  <div class="wrap">
+    <h2>One framework, many missions
+      <span class="sub">Five domains demonstrated on real data today — the same code, different missions. Click any domain to run its live demo below.</span></h2>
+
+    <div class="domain-row" id="domainRow">
+      <button class="dcard active" data-k="aviation" onclick="selectDomain('aviation')">
+        <div class="ic">✈️</div><div class="nm">Aviation</div>
+        <div class="ds">Pilot, dispatcher &amp; ATC decision support — ADS-B, NOTAMs, weather, and voice fused.</div>
+        <span class="pill">MVP · live demo</span>
+      </button>
+      <button class="dcard" data-k="patents" onclick="selectDomain('patents')">
+        <div class="ic">📄</div><div class="nm">Patent Intelligence</div>
+        <div class="ds">Prior-art &amp; competitive-IP reasoning over the USPTO corpus, examiner-ready.</div>
+        <span class="pill">MVP · live demo</span>
+      </button>
+      <button class="dcard" data-k="weather" onclick="selectDomain('weather')">
+        <div class="ic">🌤️</div><div class="nm">Weather</div>
+        <div class="ds">Foundation-model forecast comparison scored against dual ground truth.</div>
+        <span class="pill">MVP · live demo</span>
+      </button>
+      <button class="dcard" data-k="pmo" onclick="selectDomain('pmo')">
+        <div class="ic">📊</div><div class="nm">Program Mgmt</div>
+        <div class="ds">Cost / schedule / risk reasoning across IMS, EVM, and program records.</div>
+        <span class="pill">MVP · live demo</span>
+      </button>
+      <button class="dcard" data-k="health" onclick="selectDomain('health')">
+        <div class="ic">🩺</div><div class="nm">Health</div>
+        <div class="ds">Personal-health-record reasoning — conditions, labs, meds connected and checked.</div>
+        <span class="pill">MVP · live demo</span>
+      </button>
+    </div>
+
+    <div class="demo-shell">
+      <div class="demo-bar">
+        <span class="d d1"></span><span class="d d2"></span><span class="d d3"></span>
+        <span class="title mono" id="demoTitle">trellis · aviation trellis · Ask agent</span>
+        <span class="live"><span class="blip"></span>real data</span>
+      </div>
+      <div class="demo-body">
+        <div class="ask-row">
+          <div class="ask-input">
+            <div class="q-label">Ask the <span id="askDomain">aviation</span> Trellis</div>
+            <span id="askText"></span>
+          </div>
+          <button class="run-btn" id="runBtn" onclick="runDemo()">Run&nbsp;▸</button>
+        </div>
+        <div class="steps" id="steps"></div>
+        <div class="demo-note">
+          Built on real rows from the Trellis knowledge graphs. In the live system this same question runs through the Ask agent's <code>sql</code> / <code>cypher</code> / <code>vector_search</code> tools; here the answer is pre-fetched for the web.
+        </div>
+      </div>
+    </div>
+
+    <p class="intro" style="margin-top:34px">Cybersecurity, defense multi-domain ops, space operations, and energy are ready to stand up next — each with a clear data backbone and the same architecture.</p>
+  </div>
+</section>
+
+<!-- ============ WHY TRELLIS ============ -->
+<section class="alt" id="why">
+  <div class="wrap">
+    <h2>Cheaper, faster, better, safer
+      <span class="sub">Against every platform in the conversation — deployable alongside whatever a client already runs.</span></h2>
+    <div class="val-grid">
+      <div class="val-card" style="border-left-color:var(--accent)"><div class="h" style="color:var(--accent)">⚡ Faster</div><p>Mission stood up in <b>days</b> — ontology auto-drafted, confirmed by the domain expert. No multi-month deployment or engineer-led build.</p></div>
+      <div class="val-card" style="border-left-color:var(--accent-3)"><div class="h" style="color:var(--accent-3)">$ Cheaper</div><p>Open-source-first stack, customer-controlled. Cost scales with <b>mission scope</b> — not an enterprise license or per-compute meter.</p></div>
+      <div class="val-card" style="border-left-color:var(--accent-2)"><div class="h" style="color:var(--accent-2)">◎ Better</div><p>Records, voice, video, imagery, and sensors fused into <b>one reasoning graph</b> with tactical advisors — not dashboards or model toolkits.</p></div>
+      <div class="val-card" style="border-left-color:var(--good)"><div class="h" style="color:var(--good)">🛡 Safer</div><p>Source, timestamp, and confidence on <b>every entity, edge, and answer</b> — provenance designed in from ingestion.</p></div>
+    </div>
+    <div class="plat-grid">
+      <div class="plat-card"><div class="nm">Enterprise decision platforms</div><div class="rep">Palantir Foundry / AIP · C3 AI</div><div class="df"><b>Trellis in days, not a deployment.</b> The mission team configures and owns it — no engineering layer, no platform license.</div></div>
+      <div class="plat-card"><div class="nm">Lakehouse &amp; ML platforms</div><div class="rep">Databricks · SAS · DataRobot</div><div class="df"><b>No build phase.</b> The expert points at data and confirms the ontology — reasoning, advisors, and audit trail come built in.</div></div>
+      <div class="plat-card"><div class="nm">Cloud data warehouses</div><div class="rep">Snowflake · BigQuery · Redshift</div><div class="df"><b>Beyond tables.</b> Voice, video, imagery, and sensors fused into one graph that reasons — not just queries.</div></div>
+      <div class="plat-card"><div class="nm">Hyperscaler AI stacks</div><div class="rep">Google Vertex · Azure AI Foundry · AWS Bedrock</div><div class="df"><b>Assembled, not a toolkit.</b> Ontology, graph, advisors, and provenance arrive working — and stay cloud-portable.</div></div>
+      <div class="plat-card"><div class="nm">Knowledge-graph platforms</div><div class="rep">Neo4j · Stardog · Ontotext</div><div class="df"><b>The graph is the engine, not the product.</b> Trellis adds everything a graph database leaves as an exercise.</div></div>
+      <div class="plat-card"><div class="nm">Defense sensor fusion</div><div class="rep">Anduril Lattice</div><div class="df"><b>One framework, any mission.</b> Aviation to health, with regulator-readable evidence on every answer.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section id="how">
+  <div class="wrap">
+    <h2>The connection <em>is</em> the intelligence
+      <span class="sub">Describe the mission, point at your data. Trellis drafts the ontology, you confirm it, and every source flows into one graph a reasoning agent traverses — in plain language, with a full evidence trail.</span></h2>
+    <div class="cap-grid">
+      <div class="cap-card"><div class="k">Automated ontology</div><h3>Generated, not hand-built</h3><p>State the mission, point at the data — Trellis drafts the ontology and the expert confirms it. Days, not months of services.</p></div>
+      <div class="cap-card"><div class="k">Multimodal fusion</div><h3>Any modality, one graph</h3><p>Records, documents, time-series, voice, video, imagery, sensors — fused into one graph where the cross-source relationships are the intelligence.</p></div>
+      <div class="cap-card"><div class="k">Reasoning &amp; decisions</div><h3>Answers you can trust</h3><p>The agent traverses the graph for evidence; tactical decisions come from trained policies whose rule paths are inspectable.</p></div>
+      <div class="cap-card"><div class="k">Provenance</div><h3>Explainability by design</h3><p>Every entity, edge, and answer carries source, timestamp, and confidence — explanations a regulator can read.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="alt" id="contact">
+  <div class="wrap">
+    <div class="cta-box">
+      <h2>From MVP to fully deployable
+        <span class="sub">The framework is live in five domains. The last mile is a small, specific team and a hardening roadmap — not a research question.</span></h2>
+      <div class="cta-team">
+        <div class="t"><div class="n">2</div><div class="l">AI engineers — productionize ingestion, ontology generation, and the reasoning agent.</div></div>
+        <div class="t"><div class="n">1</div><div class="l">Security engineer — auth, access control, and the NIST 800-53 / FedRAMP path.</div></div>
+        <div class="t"><div class="n">1</div><div class="l">Product lead — onboarding, ontology-review UX, and self-service packaging.</div></div>
+        <div class="t"><div class="n">12mo</div><div class="l">To deployable — hardened platform, first paid pilot, agency-ready security package.</div></div>
+      </div>
+      <p class="intro" style="margin:0 auto 24px">Founder-led, with 17+ years across FAA, MITRE, and federal program delivery. We're open to a funded pilot, strategic investment, or a co-delivery partnership.</p>
+      <a class="btn btn-primary" href="mailto:anahita.imanian@gmail.com?subject=Trellis%20—%20let's%20talk">Start a conversation ▸</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p><span class="fbrand">Trellis</span> · a product of Trellis Intelligence LLC · <a href="mailto:anahita.imanian@gmail.com">contact</a></p>
+    <p class="fsmall">© 2026 Trellis Intelligence LLC · All rights reserved. Demos are built on real rows from the Trellis knowledge graphs (aviation, patents, weather, program-management, and personal-health-record trellises); values are pre-fetched for the web. The health demo is decision support for a clinician to review — not medical advice. Implementation specifics are discussed under engagement agreements.</p>
+  </div>
+</footer>
+
+<script>
+  var C = { blue:'var(--accent)', pink:'var(--accent-2)', gold:'var(--accent-3)', green:'var(--good)' };
+
+  var DEMOS = {
+    aviation: {
+      bar: 'trellis · aviation trellis · Ask agent',
+      label: 'aviation',
+      q: "Give me the arrival advisory for Delta&nbsp;1514 into KJFK — and verify it against what ATC actually said, plus any NOTAMs and the weather it's landing in.",
+      steps: [
+        { c:C.blue, icon:'✈️', k:'1 · Flight resolved — OpenSky ADS-B', title:'Delta 1514 · Miami (KMIA) → New York (KJFK)',
+          body:'ICAO24 <span class="mono">a44197</span> · 2026-06-19 · <b>297 ADS-B track points</b> · descending from FL370 (11,277 m) into the KJFK terminal area.',
+          chips:['callsign DAL1514','297 points','max 11,277 m','arrival KJFK'], prov:'source: OpenSky ADS-B · node n_Flight:a44197_DAL1514_20260619' },
+        { c:C.blue, icon:'🎯', k:'2 · Tactical advisory — RL arrival policy', title:'Recommend: descend &amp; maintain 2,000 ft · turn heading 030',
+          body:"The simulator-trained arrival policy reads the flight's most-recent terminal-area state and returns the sequencing maneuver for the KJFK approach.",
+          chips:['Δalt → 2,000 ft','heading 030','policy kjfk_arrival'], prov:'source: RL policy (BlueSky-trained) · reasoning trace attached' },
+        { c:C.pink, icon:'🎙️', k:'3 · Voice verification — LiveATC → Whisper → intent', title:'Cross-checking the advisory against what KJFK Approach transmitted',
+          body:'<div class="quote">“Delta 1514, fly heading 030, descend and maintain 2,000.”</div>Whisper transcribed the KJFK Final feed; the intent parser extracted a controller clearance and matched it to this flight by callsign:<div class="chips"><span class="chip">ALTITUDE_CALL</span><span class="chip">altitude 2,000 ft</span><span class="chip">heading 030</span><span class="chip">→ DAL1514</span></div>Corroborated across <b>4 separate transmissions</b>. <span class="match">✓ Advisory matches the controller\'s live clearance.</span>',
+          prov:'source: LiveATC KJFK-App-Final-Jun-19-2026-2100Z.mp3 → AtcTransmission → IntentEvent → ADDRESSED_TO_FLIGHT' },
+        { c:C.gold, icon:'📋', k:'4 · SWIM NOTAM — FAA AIM_FNS feed', title:'Active NOTAM on the arrival runway environment',
+          body:'<div class="quote plain">RWY 04/22 SAFETY AREA RUTTING E EDGE BTW TWY E AND TWY D</div>Surfaced automatically because Delta 1514 is inbound to KJFK.<div class="chips"><span class="chip">OTHER:SAFETYAREA</span><span class="chip">RWY 04/22</span><span class="chip">status active</span></div>',
+          prov:'source: FAA SWIM AIM_FNS · node n_Notam · edge NOTAM_AT_AIRPORT → KJFK' },
+        { c:C.green, icon:'🌤️', k:'5 · Weather — NOAA METAR at KJFK', title:'What Delta 1514 is landing into — VFR conditions',
+          body:'<div class="quote plain mono">METAR KJFK 081551Z 20009KT 10SM FEW040 26/18 A3004</div><div class="chips"><span class="chip">VFR</span><span class="chip">wind 200° @ 9 kt</span><span class="chip">vis 10+ SM</span><span class="chip">26 °C</span></div>Wind 200° favors the 04/22 arrival — consistent with the runway in the NOTAM.',
+          prov:'source: NOAA Aviation Weather Center · OBSERVED_AT_AIRPORT → KJFK' }
+      ],
+      verdict:'Four independent feeds. One flight. Every value cited.',
+      verdictBody:"ADS-B, FAA SWIM, NOAA weather, and live ATC voice — systems that never talk to each other — resolved into <b>one briefing for one flight</b>. The advisory isn't just produced; it's <span class='match'>verified against reality</span>.",
+      center:{label:'DAL1514', sub:'Flight'},
+      sats:[{e:'🎯',l:'advisory',c:C.blue},{e:'🎙️',l:'ATC voice',c:C.pink},{e:'📋',l:'NOTAM',c:C.gold},{e:'🌤️',l:'METAR',c:C.green},{e:'🛬',l:'KJFK',c:C.blue}]
+    },
+
+    patents: {
+      bar: 'trellis · patents trellis · Ask agent',
+      label: 'patents',
+      q: "For our weather-forecasting filing, who else holds art in its classification — and what have examiners cited to reject similar claims?",
+      steps: [
+        { c:C.blue, icon:'📄', k:'1 · Application — USPTO Open Data Portal', title:'“Long-term weather forecasting framework using statistical analysis”',
+          body:'Application <span class="mono">19357322</span>, pulled with full bibliographic data, claims, and prosecution history from the USPTO corpus (<b>1,932 applications</b> in this trellis).',
+          chips:['app 19357322','weather / ML','claims + spec'], prov:'source: USPTO ODP · node n_PatentApplication' },
+        { c:C.gold, icon:'🗂️', k:'2 · Classification — CPC scheme', title:'Classified under G01W · Meteorology',
+          body:'The graph resolves the filing to its CPC class and walks to <b>every other application in the same class</b> — the competitive art landscape.<div class="chips"><span class="chip">CPC G01W</span><span class="chip">4,046 classes indexed</span></div>',
+          prov:'source: CPC scheme (USPTO/EPO) · edge PatentApplication → CPCClass' },
+        { c:C.pink, icon:'🏢', k:'3 · Competitors — assignee traversal', title:'Who else holds art in this class',
+          body:'Same-class assignees surface directly from the graph — e.g. <b>Huawei Technologies</b>, <b>Textron Innovations</b>, and other holders working the same forecasting problem.<div class="chips"><span class="chip">Huawei Technologies</span><span class="chip">Textron Innovations</span><span class="chip">+ more</span></div>',
+          prov:'source: USPTO assignment data · edge PatentApplication → Assignee' },
+        { c:C.blue, icon:'⚖️', k:'4 · Prosecution — office actions (OCR + parse)', title:'What examiners cited to reject similar claims',
+          body:'<b>2,299 office actions</b> in the corpus are OCR-read and parsed for rejection grounds. §103 (obviousness) rejections carry the exact prior US patents the examiner cited — a ready-made §103 chain.<div class="chips"><span class="chip">§103 obviousness</span><span class="chip">cited prior art</span><span class="chip">2,299 OAs</span></div>',
+          prov:'source: USPTO documents + rapidocr · node n_OfficeAction (has_103_rejection, cited_us_patent_numbers)' }
+      ],
+      verdict:'One filing → the whole competitive & prior-art picture.',
+      verdictBody:'Classification, competitor portfolios, and prosecution history — three independent USPTO datasets — assembled into a <b>§103 obviousness picture</b> for one application, with every cited patent traceable to the office action it came from.',
+      center:{label:'Application', sub:'19357322'},
+      sats:[{e:'🗂️',l:'CPC G01W',c:C.gold},{e:'🏢',l:'competitors',c:C.pink},{e:'⚖️',l:'office action',c:C.blue},{e:'📎',l:'prior art',c:C.green}]
+    },
+
+    weather: {
+      bar: 'trellis · weather trellis · Ask agent',
+      label: 'weather',
+      q: "Which AI weather model should I trust for KJFK — and does the answer change depending on the truth source?",
+      steps: [
+        { c:C.blue, icon:'🛰️', k:'1 · Models — real inference, scored', title:'Three foundation models vs the operational baseline',
+          body:'IBM/NASA <b>Prithvi</b> (2.3 B), Microsoft <b>Aurora</b> (1.3 B), Huawei <b>Pangu</b> (100 M) run real inference against NOAA <b>HRRR</b>, the operational NWP baseline.',
+          chips:['Prithvi 2.3B','Aurora 1.3B','Pangu 100M','HRRR baseline'], prov:'source: HuggingFace + NOAA HRRR · nodes n_WxModel / n_WxModelRun' },
+        { c:C.green, icon:'📊', k:'2 · Scored vs METAR (operational truth)', title:'6-hour temperature error at KJFK · 31 May 2026',
+          body:'Mean absolute error against the station observation the pilot actually sees:<div class="chips"><span class="chip">Aurora 0.89 K</span><span class="chip">Pangu 1.42 K</span><span class="chip">Prithvi 2.05 K</span><span class="chip">HRRR 3.20 K</span></div>Both foundation models beat the operational baseline.',
+          prov:'source: NOAA METAR · node n_WxSkillSummary (MAE · aviation truth)' },
+        { c:C.pink, icon:'🔀', k:'3 · Dual truth — the ranking can flip', title:'METAR (operational) vs ERA5 (academic) truth',
+          body:'Scored against <b>ERA5 reanalysis</b> — what every foundation-model paper benchmarks on — the winner can change: Aurora leads on METAR, but on 1 July <b>Pangu leads on ERA5</b>. Same forecasts, different truth.',
+          prov:'source: ERA5 reanalysis · node n_WxSkillSummary (era5_hindcast truth)' }
+      ],
+      verdict:'“Best model” is a question about which truth you trust.',
+      verdictBody:'Four models, two independent truth sources, materialized per model × variable × lead × date — so the answer is <b>defensible and reproducible</b>, and the operational-vs-academic disagreement is visible, not hidden.',
+      center:{label:'KJFK', sub:'6h forecast'},
+      sats:[{e:'🛰️',l:'Aurora',c:C.blue},{e:'🛰️',l:'Pangu',c:C.pink},{e:'🛰️',l:'Prithvi',c:C.gold},{e:'📡',l:'METAR',c:C.green},{e:'🔬',l:'ERA5',c:C.blue}]
+    },
+
+    pmo: {
+      bar: 'trellis · program-management trellis · Ask agent',
+      label: 'program management',
+      q: "Which work packages are over budget AND blocked by an open risk — and what's the causal chain?",
+      steps: [
+        { c:C.gold, icon:'💰', k:'1 · Cost — EVM snapshot', title:'A work package running hot on cost',
+          body:'The earned-value snapshot shows a <b>Cost Performance Index of 0.69</b> — the package is earning ~69¢ of value per dollar spent (a real cost overrun), against a $1.36 M budget-at-completion.<div class="chips"><span class="chip">CPI 0.69</span><span class="chip">over budget</span><span class="chip">BAC $1.36 M</span></div>',
+          prov:'source: EVM cost system · node n_EVMSnapshot (cpi · bac · eac)' },
+        { c:C.pink, icon:'⚠️', k:'2 · Schedule risk — ARM risk register', title:'An open HIGH risk on the same package',
+          body:'<div class="quote">“Equipment Vendor Lead Times — lead times for E-IDS equipment vendors may delay site preparation.”</div><div class="chips"><span class="chip">Schedule · HIGH</span><span class="chip">status open</span><span class="chip">pkg E-IDS</span></div>',
+          prov:'source: ARM risk register · node n_Risk (category · severity · status)' },
+        { c:C.blue, icon:'🔗', k:'3 · Connect — cost × schedule, one package', title:'The two independent systems point at the same work',
+          body:'Trellis joins the EVM cost feed and the risk register through the work package — surfacing packages that are <b>failing on cost AND carrying an open schedule risk at once</b>, with the causal chain attached rather than two disconnected flags.',
+          prov:'source: cross-source join · JCN → EVMSnapshot + JCN → Risk' }
+      ],
+      verdict:'A cross-system roll-up with its causal chain.',
+      verdictBody:'EVM cost data and the risk register are separate systems that never reconcile automatically. Trellis makes the connection queryable — <b>“show me packages over budget and at schedule risk”</b> — and every number traces to its source record.',
+      center:{label:'Work pkg', sub:'E-IDS / JCN'},
+      sats:[{e:'💰',l:'EVM cost',c:C.gold},{e:'⚠️',l:'risk',c:C.pink},{e:'📅',l:'schedule',c:C.blue},{e:'📦',l:'NEEDS pkg',c:C.green}]
+    },
+
+    health: {
+      bar: 'trellis · personal-health-record trellis · Ask agent',
+      label: 'health',
+      q: "I'm having chest pain — what in my own health record is relevant, and is anything I'm taking worth flagging for my doctor?",
+      steps: [
+        { c:C.blue, icon:'🗂️', k:'1 · Record — Epic MyChart export (C-CDA)', title:'Your own record, structured into a graph',
+          body:'Ingested from an Epic MyChart <b>Share Everywhere</b> export: <b>65 encounters</b>, <b>258 lab results</b>, conditions, medications, vitals, allergies — all provenance-preserved.',
+          chips:['65 encounters','258 labs','8 conditions','5 meds'], prov:'source: Epic MyChart C-CDA/CCD · nodes n_Encounter / n_LabResult / n_Condition' },
+        { c:C.pink, icon:'❤️', k:'2 · Condition + cardiac labs', title:'Chest pain on the problem list, tied to EKG results',
+          body:'The problem list carries <b>“Ischemic chest pain”</b>; the graph links it to the EKG lab panel in your record:<div class="chips"><span class="chip">Ischemic chest pain</span><span class="chip">QT 404 ms</span><span class="chip">QTC 426 ms</span><span class="chip">QRS 90 ms</span></div>',
+          prov:'source: problem list + LOINC-coded LabResult · edge Condition ↔ Encounter ↔ LabResult' },
+        { c:C.gold, icon:'💊', k:'3 · Medications — cross-check', title:'What you\'re taking that a clinician should weigh',
+          body:'Active meds include NSAIDs — <b>ibuprofen (ADVIL) 600 mg</b> and <b>naproxen (NAPROSYN) 500 mg</b>. The graph surfaces these alongside the cardiac picture because NSAIDs carry cardiovascular cautions worth a clinician\'s review.<div class="chips"><span class="chip">ibuprofen 600 mg</span><span class="chip">naproxen 500 mg</span><span class="chip">NSAID · CV caution</span></div>',
+          prov:'source: medication list · edge Patient → Medication' }
+      ],
+      verdict:'Your record, connected — and checked for what matters.',
+      verdictBody:'Conditions, labs, and medications live in separate sections of a health record no patient reads end-to-end. Trellis connects them into one reasoning trace and <b>flags the intersection for your clinician to review</b> — decision support, with every fact cited to your own record. <span class="match">Not medical advice.</span>',
+      center:{label:'You', sub:'Patient'},
+      sats:[{e:'❤️',l:'condition',c:C.pink},{e:'🧪',l:'EKG labs',c:C.blue},{e:'💊',l:'meds',c:C.gold},{e:'🩺',l:'encounter',c:C.green}]
+    }
+  };
+
+  var SLOTS = [ {x:120,y:48}, {x:520,y:48}, {x:120,y:158}, {x:520,y:158}, {x:320,y:24} ];
+
+  function buildGraph(d) {
+    var cx=320, cy=104;
+    var lines='', nodes='';
+    d.sats.forEach(function(s, i){
+      var p = SLOTS[i]; if(!p) return;
+      lines += '<line class="gline" x1="'+cx+'" y1="'+cy+'" x2="'+p.x+'" y2="'+p.y+'"></line>';
+      var ly = p.y < cy ? p.y-24 : p.y+30;
+      nodes += '<g><circle cx="'+p.x+'" cy="'+p.y+'" r="17" fill="rgba(255,255,255,0.05)" stroke="'+s.c+'" stroke-width="1.5"></circle>'
+             + '<text x="'+p.x+'" y="'+(p.y+4)+'" text-anchor="middle" font-size="13">'+s.e+'</text>'
+             + '<text x="'+p.x+'" y="'+ly+'" text-anchor="middle" font-size="9" fill="var(--text-mute)">'+s.l+'</text></g>';
+    });
+    return '<svg viewBox="0 0 640 200" aria-label="connection graph">'+lines
+      + '<circle cx="'+cx+'" cy="'+cy+'" r="34" fill="rgba(76,201,240,0.16)" stroke="var(--accent)" stroke-width="2"></circle>'
+      + '<text x="'+cx+'" y="'+(cy-1)+'" text-anchor="middle" font-size="12" fill="var(--text)" font-weight="700">'+d.center.label+'</text>'
+      + '<text x="'+cx+'" y="'+(cy+13)+'" text-anchor="middle" font-size="9" fill="var(--text-mute)">'+d.center.sub+'</text>'
+      + nodes + '</svg>';
+  }
+
+  var current = 'aviation';
+
+  function renderDomain(key) {
+    var d = DEMOS[key]; current = key;
+    document.getElementById('demoTitle').textContent = d.bar;
+    document.getElementById('askDomain').textContent = d.label;
+    document.getElementById('askText').innerHTML = d.q;
+    var html = '';
+    d.steps.forEach(function(s, i){
+      html += '<div class="step" data-s="'+i+'"><div class="step-card" style="--c:'+s.c+'"><div class="step-icon">'+s.icon+'</div><div class="step-main">'
+        + '<div class="step-k">'+s.k+'</div><div class="step-title">'+s.title+'</div>'
+        + '<div class="step-body">'+s.body+'</div><div class="prov">▸ '+s.prov+'</div></div></div></div>';
+    });
+    // verdict + graph step
+    html += '<div class="step" data-s="'+d.steps.length+'"><div class="step-card verdict" style="--c:var(--good)"><div class="step-icon">🧠</div><div class="step-main">'
+      + '<div class="step-k">'+(d.steps.length+1)+' · The answer — one connected trace</div><div class="step-title">'+d.verdict+'</div>'
+      + '<div class="demo-graph">'+buildGraph(d)+'</div>'
+      + '<div class="step-body" style="text-align:center;margin-top:6px">'+d.verdictBody+'</div></div></div></div>';
+    document.getElementById('steps').innerHTML = html;
+    var btn = document.getElementById('runBtn'); btn.disabled=false; btn.textContent='Run ▸';
+  }
+
+  function selectDomain(key) {
+    document.querySelectorAll('#domainRow .dcard').forEach(function(c){
+      c.classList.toggle('active', c.getAttribute('data-k')===key);
+    });
+    renderDomain(key);
+    runDemo();
+  }
+
+  function runDemo() {
+    var btn = document.getElementById('runBtn');
+    var steps = document.querySelectorAll('#steps .step');
+    var lines = document.querySelectorAll('#steps .gline');
+    steps.forEach(function(s){ s.classList.remove('show'); });
+    lines.forEach(function(l){ l.classList.remove('show'); });
+    btn.disabled = true; btn.textContent = 'Running…';
+    var delay = 0;
+    steps.forEach(function(step, i){
+      delay += (i === 0 ? 250 : 900);
+      setTimeout(function(){
+        step.classList.add('show');
+        step.scrollIntoView({behavior:'smooth', block:'center'});
+        if (i === steps.length - 1) {
+          lines.forEach(function(l, li){ setTimeout(function(){ l.classList.add('show'); }, 300 + li*200); });
+          setTimeout(function(){ btn.disabled=false; btn.textContent='Run again ▸'; }, 300 + lines.length*200 + 400);
+        }
+      }, delay);
+    });
+  }
+
+  // initial render + auto-run when the domains section scrolls into view
+  renderDomain('aviation');
+  var demoFired = false, demoSec = document.getElementById('domains');
+  window.addEventListener('scroll', function(){
+    if (demoFired) return;
+    var r = demoSec.getBoundingClientRect();
+    if (r.top < window.innerHeight * 0.35 && r.bottom > 0) { demoFired = true; runDemo(); }
+  });
+</script>
+</body>
+</html>
