@@ -4,59 +4,80 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Trellis — the reasoning framework for mission-driven intelligence</title>
-<meta name="description" content="Trellis Intelligence turns fragmented operational data — records, documents, voice, sensors — into one connected, explainable reasoning graph. Five live demos on real data: aviation, patents, weather, program management, and health.">
+<meta name="description" content="Trellis Intelligence turns fragmented operational data — records, documents, voice, sensors — into one connected, explainable reasoning graph. Four live demos on real data: aviation, patents, weather, and health.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0a1224; --bg-elev: #111c36; --bg-card: #16244a;
-    --accent: #4cc9f0; --accent-2: #f72585; --accent-3: #ffb703;
-    --text: #e9eef5; --text-mute: #9eb0c8; --border: #243a64; --good: #6ad88a;
+    /* Overwatch-inspired light palette */
+    --bg: #f2ede6;          /* warm cream */
+    --bg-elev: #ffffff;     /* white sections */
+    --bg-card: #ffffff;     /* white cards */
+    --tint: #edeeff;        /* lavender highlight tint */
+    --accent: #000faf;      /* electric deep blue */
+    --accent-2: #e46f03;    /* orange pop */
+    --accent-3: #7593e8;    /* periwinkle */
+    --text: #111111;        /* near black */
+    --text-mute: #55565c;   /* muted gray */
+    --border: #e4ded3;      /* warm light border */
+    --good: #1f9d55;        /* green */
   }
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
-  body { font-family: -apple-system, "Segoe UI", system-ui, sans-serif; background: var(--bg); color: var(--text); margin: 0; line-height: 1.55; }
+  body { font-family: 'Inter', -apple-system, "Segoe UI", system-ui, sans-serif; background: var(--bg); color: var(--text); margin: 0; line-height: 1.55; -webkit-font-smoothing: antialiased; }
   .wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
   a { color: inherit; }
-  .mono { font-family: 'SF Mono', 'Roboto Mono', Consolas, monospace; }
+  .mono { font-family: 'Roboto Mono', 'SF Mono', Consolas, monospace; }
 
   /* Nav */
-  nav { position: sticky; top: 0; z-index: 100; background: rgba(10,18,36,0.82); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); }
+  nav { position: sticky; top: 0; z-index: 100; background: rgba(242,237,230,0.86); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); }
   nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 62px; }
   .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; font-size: 15px; text-decoration: none; }
-  .brand .dot { width: 10px; height: 10px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--accent-2)); box-shadow: 0 0 12px rgba(76,201,240,0.6); }
+  .brand .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 12px rgba(0,15,175,0.6); }
   .brand small { font-size: 9px; letter-spacing: 0.18em; color: var(--text-mute); display: block; font-weight: 600; }
   .navlinks { display: flex; gap: 26px; align-items: center; }
   .navlinks a { text-decoration: none; color: var(--text-mute); font-size: 14px; font-weight: 500; transition: color .15s; }
   .navlinks a:hover { color: var(--accent); }
-  .navlinks a.cta { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #06091a; padding: 8px 16px; border-radius: 100px; font-weight: 700; }
+  .navlinks a.cta { background: var(--accent); color: #ffffff; padding: 8px 16px; border-radius: 100px; font-weight: 700; }
   @media (max-width: 820px) { .navlinks a:not(.cta) { display: none; } }
 
   /* Hero */
-  header { background: radial-gradient(900px 400px at 50% -5%, rgba(76,201,240,0.12), transparent 70%), linear-gradient(165deg, #0a1224 0%, #0e1830 55%, #16244a 100%); padding: 84px 24px 66px; text-align: center; border-bottom: 1px solid var(--border); }
-  .eyebrow { display: inline-block; background: rgba(255,255,255,0.06); padding: 6px 15px; border-radius: 100px; font-size: 11.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); border: 1px solid rgba(255,255,255,0.12); margin-bottom: 22px; }
+  header { background: radial-gradient(900px 420px at 50% -8%, rgba(0,15,175,0.10), transparent 70%), linear-gradient(180deg, #f6f2ea 0%, #edeeff 100%); padding: 84px 24px 66px; text-align: center; border-bottom: 1px solid var(--border); }
+  .eyebrow { display: inline-block; background: var(--tint); padding: 6px 15px; border-radius: 100px; font-size: 11.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); border: 1px solid rgba(0,15,175,0.18); margin-bottom: 22px; font-weight: 600; }
   h1.hero { font-size: 60px; margin: 0; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 700; line-height: 1.05; }
   .hero-underline { width: 180px; height: 1px; margin: 14px auto 0; background: linear-gradient(90deg, transparent, var(--accent), transparent); }
-  .hero-tagline { font-size: 22px; font-weight: 400; max-width: 720px; margin: 22px auto 0; background: linear-gradient(90deg, #4cc9f0, #f72585); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
-  .hero-sub { font-size: 18px; color: var(--text-mute); max-width: 720px; margin: 20px auto 0; }
+  .hero-tagline { font-size: 26px; font-weight: 700; max-width: 760px; margin: 22px auto 0; color: var(--accent); letter-spacing: -0.01em; }
+  .hero-sub { font-size: 18px; color: var(--text-mute); max-width: 740px; margin: 20px auto 0; }
+  .hero-sub b { color: var(--text); }
+  .hero-agent { display: inline-flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: center; margin: 24px auto 0; padding: 11px 20px; background: #fff; border: 1px solid var(--border); border-radius: 100px; box-shadow: 0 6px 20px rgba(17,17,17,0.06); }
+  .hero-agent .ha-step { font-size: 13.5px; font-weight: 600; color: var(--text); white-space: nowrap; opacity: 1; }
+  .hero-agent .sep { color: var(--accent); font-weight: 800; }
+  @media (max-width: 560px) { .hero-agent { border-radius: 18px; } .hero-agent .sep { display: none; } }
   .hero-btns { display: flex; gap: 14px; justify-content: center; margin-top: 34px; flex-wrap: wrap; }
   .btn { display: inline-block; text-decoration: none; padding: 13px 26px; border-radius: 100px; font-weight: 700; font-size: 15px; transition: transform .15s, box-shadow .15s; cursor: pointer; border: none; }
-  .btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #06091a; box-shadow: 0 8px 24px rgba(76,201,240,0.25); }
-  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(76,201,240,0.4); }
+  .btn-primary { background: var(--accent); color: #ffffff; box-shadow: 0 8px 24px rgba(0,15,175,0.25); }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0,15,175,0.4); }
   .btn-ghost { border: 1px solid var(--border); color: var(--text); background: transparent; }
   .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
 
   section { padding: 74px 0; }
   section.alt { background: var(--bg-elev); }
+  .sec-eyebrow { text-align: center; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 14px; }
+  .sec-eyebrow::before { content: ""; display: inline-block; width: 24px; height: 2px; background: var(--accent); vertical-align: middle; margin-right: 10px; border-radius: 2px; }
+  .sec-eyebrow::after { content: ""; display: inline-block; width: 24px; height: 2px; background: var(--accent); vertical-align: middle; margin-left: 10px; border-radius: 2px; }
+  .stepno { font-family: 'Roboto Mono', monospace; font-size: 12px; font-weight: 700; color: var(--accent); background: var(--tint); border: 1px solid rgba(0,15,175,0.16); border-radius: 8px; padding: 4px 9px; display: inline-block; margin-bottom: 12px; }
   h2 { font-size: 30px; text-align: center; margin: 0 0 10px; font-weight: 700; letter-spacing: -0.01em; }
   h2 .sub { display: block; font-weight: 400; font-size: 17px; color: var(--text-mute); margin-top: 8px; max-width: 820px; margin-left: auto; margin-right: auto; }
   .intro { color: var(--text-mute); font-size: 16px; max-width: 780px; margin: 0 auto 40px; text-align: center; }
 
   /* Domain cards = clickable tabs */
-  .domain-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-top: 34px; }
+  .domain-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 34px; }
   @media (max-width: 900px) { .domain-row { grid-template-columns: repeat(3, 1fr); } }
   @media (max-width: 560px) { .domain-row { grid-template-columns: repeat(2, 1fr); } }
   .dcard { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 15px; cursor: pointer; transition: transform .15s, border-color .15s, box-shadow .15s; position: relative; text-align: left; }
   .dcard:hover { transform: translateY(-3px); border-color: var(--accent); }
-  .dcard.active { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent), 0 12px 30px rgba(76,201,240,0.22); }
+  .dcard.active { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent), 0 12px 30px rgba(0,15,175,0.22); }
   .dcard.active::after { content: "▾ demo below"; position: absolute; top: 12px; right: 12px; font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); font-weight: 700; }
   .dcard .ic { font-size: 26px; margin-bottom: 10px; }
   .dcard .nm { font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 6px; }
@@ -64,8 +85,8 @@
   .pill { display: inline-block; font-size: 9.5px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; padding: 4px 8px; border-radius: 100px; background: rgba(106,216,138,0.14); color: var(--good); border: 1px solid rgba(106,216,138,0.4); }
 
   /* Demo shell */
-  .demo-shell { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.4); margin-top: 28px; }
-  .demo-bar { display: flex; align-items: center; gap: 8px; padding: 12px 18px; background: rgba(0,0,0,0.25); border-bottom: 1px solid var(--border); }
+  .demo-shell { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: 0 18px 50px rgba(17,17,17,0.10); margin-top: 28px; }
+  .demo-bar { display: flex; align-items: center; gap: 8px; padding: 12px 18px; background: #f0ede7; border-bottom: 1px solid var(--border); }
   .demo-bar .d { width: 11px; height: 11px; border-radius: 50%; }
   .demo-bar .d1 { background: #ff5f57; } .demo-bar .d2 { background: #febc2e; } .demo-bar .d3 { background: #28c840; }
   .demo-bar .title { margin-left: 10px; font-size: 12px; color: var(--text-mute); }
@@ -74,16 +95,16 @@
   @keyframes blip { 0%,100%{opacity:1} 50%{opacity:.25} }
   .demo-body { padding: 24px; }
   .ask-row { display: flex; gap: 12px; align-items: stretch; flex-wrap: wrap; }
-  .ask-input { flex: 1 1 340px; background: rgba(0,0,0,0.28); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; font-size: 14.5px; color: var(--text); line-height: 1.4; }
+  .ask-input { flex: 1 1 340px; background: #f7f5f0; border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; font-size: 14.5px; color: var(--text); line-height: 1.4; }
   .ask-input .q-label { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
-  .run-btn { flex: 0 0 auto; background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #06091a; border: none; border-radius: 10px; padding: 0 26px; font-weight: 700; font-size: 15px; cursor: pointer; transition: transform .12s, box-shadow .12s; }
-  .run-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 22px rgba(76,201,240,0.35); }
+  .run-btn { flex: 0 0 auto; background: var(--accent); color: #ffffff; border: none; border-radius: 10px; padding: 0 26px; font-weight: 700; font-size: 15px; cursor: pointer; transition: transform .12s, box-shadow .12s; }
+  .run-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 22px rgba(0,15,175,0.35); }
   .run-btn:disabled { opacity: .5; cursor: default; transform: none; box-shadow: none; }
 
   .steps { margin-top: 22px; display: flex; flex-direction: column; gap: 14px; }
   .step { opacity: 0; transform: translateY(10px); transition: opacity .5s ease, transform .5s ease; }
   .step.show { opacity: 1; transform: translateY(0); }
-  .step-card { display: flex; gap: 14px; background: rgba(0,0,0,0.22); border: 1px solid var(--border); border-left: 3px solid var(--c, var(--accent)); border-radius: 0 10px 10px 0; padding: 16px 18px; }
+  .step-card { display: flex; gap: 14px; background: #f9f7f3; border: 1px solid var(--border); border-left: 3px solid var(--c, var(--accent)); border-radius: 0 10px 10px 0; padding: 16px 18px; }
   .step-card.verdict { background: rgba(106,216,138,0.07); }
   .step-icon { font-size: 22px; flex: 0 0 auto; width: 30px; text-align: center; }
   .step-main { flex: 1 1 auto; min-width: 0; }
@@ -91,24 +112,38 @@
   .step-title { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
   .step-body { font-size: 13.5px; color: var(--text-mute); }
   .step-body b { color: var(--text); }
-  .quote { color: var(--text); background: rgba(255,255,255,0.05); border-radius: 6px; padding: 8px 12px; margin: 8px 0; font-size: 14px; font-style: italic; }
+  .quote { color: var(--text); background: #eee9df; border-radius: 6px; padding: 8px 12px; margin: 8px 0; font-size: 14px; font-style: italic; }
   .quote.plain { font-style: normal; }
   .chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 4px; }
-  .chip { font-family: 'SF Mono', Consolas, monospace; font-size: 11px; font-weight: 700; padding: 4px 9px; border-radius: 6px; background: rgba(76,201,240,0.13); border: 1px solid rgba(76,201,240,0.4); color: var(--text); white-space: nowrap; }
+  .chip { font-family: 'SF Mono', Consolas, monospace; font-size: 11px; font-weight: 700; padding: 4px 9px; border-radius: 6px; background: rgba(0,15,175,0.13); border: 1px solid rgba(0,15,175,0.4); color: var(--text); white-space: nowrap; }
   .prov { font-family: 'SF Mono', Consolas, monospace; font-size: 10.5px; color: var(--good); margin-top: 9px; }
   .match { color: var(--good); font-weight: 700; }
   .demo-graph svg { display: block; width: 100%; height: auto; }
-  .gline { stroke: rgba(158,176,200,0.4); stroke-width: 1.4; opacity: 0; transition: opacity .7s; }
+  .gline { stroke: rgba(85,86,92,0.35); stroke-width: 1.4; opacity: 0; transition: opacity .7s; }
   .gline.show { opacity: 1; }
   .demo-note { font-size: 11.5px; color: var(--text-mute); text-align: center; margin-top: 16px; }
-  .demo-note code { color: var(--accent); background: rgba(76,201,240,0.1); padding: 1px 5px; border-radius: 3px; }
+  .demo-note code { color: var(--accent); background: rgba(0,15,175,0.1); padding: 1px 5px; border-radius: 3px; }
+  .demo-fig { margin: 20px 0 4px; text-align: center; }
+  .demo-fig img { max-width: 100%; width: 560px; border-radius: 12px; border: 1px solid var(--border); box-shadow: 0 10px 30px rgba(17,17,17,0.12); }
+  .demo-fig .cap { font-size: 12px; color: var(--text-mute); margin-top: 10px; font-style: italic; }
+  .demo-fig .cap b { color: var(--good); font-style: normal; }
+  .step-img { max-width: 100%; width: 420px; border-radius: 8px; border: 1px solid var(--border); margin-top: 10px; }
+  .demo-tabs { display: flex; flex-wrap: wrap; gap: 8px; }
+  .demo-tab { background: var(--bg-card); border: 1px solid var(--border); border-radius: 100px; padding: 8px 16px; font-size: 13px; font-weight: 600; color: var(--text-mute); cursor: pointer; transition: all .15s; }
+  .demo-tab:hover { border-color: var(--accent); color: var(--text); }
+  .demo-tab.active { background: var(--accent); color: #ffffff; border-color: transparent; }
+  .back-link { display: inline-block; margin-bottom: 18px; color: var(--accent); text-decoration: none; font-weight: 600; font-size: 14px; }
+  .back-link:hover { opacity: .8; }
+  .chat-q { background: rgba(0,15,175,0.09); border: 1px solid rgba(0,15,175,0.34); border-radius: 12px; padding: 13px 16px; font-size: 14.5px; font-weight: 600; color: var(--text); }
+  .chat-q .who { font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 5px; }
 
   /* capability */
   .cap-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 34px; }
   @media (max-width: 900px) { .cap-grid { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 520px) { .cap-grid { grid-template-columns: 1fr; } }
   .cap-card { background: var(--bg-card); border: 1px solid var(--border); border-top: 3px solid var(--accent); border-radius: 12px; padding: 20px; }
-  .cap-card .k { font-size: 10.5px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent-3); margin-bottom: 10px; }
+  .cap-card .k { font-size: 10.5px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+  .cap-card { position: relative; }
   .cap-card h3 { margin: 0 0 8px; font-size: 16px; }
   .cap-card p { margin: 0; font-size: 13px; color: var(--text-mute); line-height: 1.5; }
 
@@ -126,32 +161,100 @@
   .plat-card .df b { color: var(--accent); }
 
   /* CTA */
-  .cta-box { background: linear-gradient(150deg, #16244a, #0e1830); border: 1px solid var(--border); border-radius: 16px; padding: 44px 34px; text-align: center; }
+  .cta-box { background: linear-gradient(150deg, #edeeff, #ffffff); border: 1px solid var(--border); border-radius: 16px; padding: 44px 34px; text-align: center; }
   .cta-team { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; margin: 30px 0; text-align: left; }
   @media (max-width: 720px) { .cta-team { grid-template-columns: repeat(2,1fr); } }
-  .cta-team .t { background: rgba(0,0,0,0.2); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+  .cta-team .t { background: #f7f5f0; border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
   .cta-team .t .n { font-size: 26px; font-weight: 700; color: var(--accent); }
   .cta-team .t:nth-child(2) .n { color: var(--accent-2); }
   .cta-team .t:nth-child(3) .n { color: var(--accent-3); }
   .cta-team .t:nth-child(4) .n { color: var(--good); }
   .cta-team .t .l { font-size: 12px; color: var(--text-mute); margin-top: 4px; }
 
-  footer { background: #06091a; border-top: 1px solid var(--border); padding: 44px 24px; text-align: center; color: var(--text-mute); }
+  /* Conversational chat mockup (question + answer come along) */
+  .chatmock { background: #fff; border: 1px solid var(--border); border-radius: 18px; box-shadow: 0 16px 44px rgba(17,17,17,0.10); overflow: hidden; }
+  .cm-head { display: flex; align-items: center; gap: 9px; padding: 12px 16px; background: #f0ede7; border-bottom: 1px solid var(--border); font-size: 12px; color: var(--text-mute); font-family: 'Roboto Mono', monospace; }
+  .cm-head .dot3 { display: flex; gap: 5px; }
+  .cm-head .dot3 span { width: 9px; height: 9px; border-radius: 50%; }
+  .cm-head .dot3 span:nth-child(1){ background:#ff5f57 } .cm-head .dot3 span:nth-child(2){ background:#febc2e } .cm-head .dot3 span:nth-child(3){ background:#28c840 }
+  .cm-live { margin-left: auto; color: var(--good); font-weight: 700; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; display: flex; align-items: center; gap: 5px; }
+  .cm-live .blip { width: 7px; height: 7px; border-radius: 50%; background: var(--good); animation: blip 1.6s infinite; }
+  .cm-body { padding: 18px 16px; display: flex; flex-direction: column; gap: 12px; }
+  .msg { max-width: 90%; padding: 12px 15px; border-radius: 15px; font-size: 14px; line-height: 1.5; }
+  .msg.user { align-self: flex-end; background: var(--accent); color: #fff; border-bottom-right-radius: 5px; font-weight: 500; }
+  .msg.user .who { font-size: 9px; letter-spacing: 0.13em; text-transform: uppercase; opacity: 0.75; margin-bottom: 5px; font-weight: 700; }
+  .msg.bot { align-self: flex-start; background: #f7f5f0; color: var(--text); border: 1px solid var(--border); border-bottom-left-radius: 5px; }
+  .msg.bot .who { font-size: 9px; letter-spacing: 0.13em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; font-weight: 700; display: flex; align-items: center; gap: 6px; }
+  .msg.bot b { color: var(--text); }
+  .b-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 11px; }
+  .b-chips span { font-family: 'Roboto Mono', monospace; font-size: 10.5px; font-weight: 600; padding: 3px 8px; border-radius: 6px; background: var(--tint); border: 1px solid rgba(0,15,175,0.22); color: var(--accent); }
+  .b-prov { font-family: 'Roboto Mono', monospace; font-size: 10px; color: var(--good); margin-top: 11px; padding-top: 9px; border-top: 1px dashed var(--border); }
+
+  /* Overwatch-style landing bands (image + persona + conversational questions) */
+  #domainBands { margin-top: 30px; }
+  .oband { display: grid; grid-template-columns: 1fr 1fr; gap: 46px; align-items: center; padding: 50px 0; border-top: 1px solid var(--border); }
+  .oband:first-child { border-top: none; }
+  .oband:nth-child(even) .oband-media { order: 2; }
+  @media (max-width: 860px) { .oband { grid-template-columns: 1fr; gap: 26px; padding: 40px 0; } .oband:nth-child(even) .oband-media { order: 0; } }
+  .oband-media { border-radius: 16px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 16px 44px rgba(17,17,17,0.12); background: #f7f5f0; }
+  .oband-media img { display: block; width: 100%; height: auto; }
+  .oband-media .cap { font-size: 12px; color: var(--text-mute); padding: 11px 15px; border-top: 1px solid var(--border); font-style: italic; }
+  .oband-media .cap b { color: var(--good); font-style: normal; }
+  .oband-copy .eb { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); font-weight: 700; }
+  .oband-copy h3 { font-size: 29px; margin: 10px 0 10px; letter-spacing: -0.01em; line-height: 1.1; }
+  .oband-copy .mis { font-size: 15.5px; color: var(--text-mute); line-height: 1.55; margin: 0 0 20px; }
+  .oq { background: rgba(0,15,175,0.07); border: 1px solid rgba(0,15,175,0.28); border-radius: 12px; padding: 12px 15px; margin-bottom: 10px; font-size: 15px; font-weight: 500; color: var(--text); line-height: 1.4; }
+  .oq .who { font-size: 9px; letter-spacing: 0.13em; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 5px; }
+  .oband-cta { margin-top: 18px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+  .oband-cta .pill { position: static; }
+
+  /* Domain hero (overwatch-style: image + conversational question) */
+  .dhero { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 34px; align-items: center; margin-top: 24px; }
+  @media (max-width: 860px) { .dhero { grid-template-columns: 1fr; } }
+  .dhero-media { border-radius: 16px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 16px 44px rgba(17,17,17,0.12); background: #f7f5f0; }
+  .dhero-media img { display: block; width: 100%; height: auto; }
+  .dhero-media .cap { font-size: 12px; color: var(--text-mute); padding: 11px 15px; border-top: 1px solid var(--border); font-style: italic; }
+  .dhero-media .cap b { color: var(--good); font-style: normal; }
+  .dhero-copy .dh-eyebrow { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); font-weight: 700; }
+  .dhero-copy h1 { font-size: 38px; margin: 10px 0 8px; letter-spacing: -0.01em; line-height: 1.08; }
+  .dhero-copy .mission { font-size: 16.5px; color: var(--text-mute); margin: 0 0 20px; line-height: 1.5; }
+  .dh-q { background: rgba(0,15,175,0.09); border: 1px solid rgba(0,15,175,0.34); border-radius: 14px; padding: 16px 18px; font-size: 17.5px; font-weight: 600; color: var(--text); line-height: 1.45; }
+  .dh-q .who { font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 7px; }
+  .dh-run { margin-top: 16px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+
+  /* Question showcase (grouped, conversational) */
+  .qshow { margin-top: 52px; }
+  .qshow h2 { text-align: left; font-size: 24px; margin-bottom: 6px; }
+  .qshow .lead { color: var(--text-mute); font-size: 15px; margin: 0 0 26px; max-width: 760px; }
+  .qgroups { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; }
+  .qgroup { background: var(--bg-card); border: 1px solid var(--border); border-top: 3px solid var(--gc, var(--accent)); border-radius: 12px; padding: 20px 20px 8px; }
+  .qgroup .gt { display: flex; align-items: center; gap: 9px; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gc, var(--accent)); margin-bottom: 14px; }
+  .qgroup .gt .gi { font-size: 17px; }
+  .qgroup ul { list-style: none; margin: 0; padding: 0; }
+  .qgroup li { font-size: 14.5px; color: var(--text); line-height: 1.45; padding: 11px 0 11px 20px; border-top: 1px solid var(--border); position: relative; }
+  .qgroup li:first-child { border-top: none; }
+  .qgroup li::before { content: "\201C"; position: absolute; left: 2px; top: 9px; color: var(--gc, var(--accent)); font-size: 20px; font-weight: 700; line-height: 1; }
+  .qgroup li .flagtag { display: inline-block; margin-left: 6px; font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 700; color: var(--good); background: rgba(106,216,138,0.14); border: 1px solid rgba(106,216,138,0.4); border-radius: 100px; padding: 2px 7px; vertical-align: 1px; }
+  .qshow-note { font-size: 12px; color: var(--text-mute); margin-top: 20px; text-align: center; }
+  .qshow-note code { color: var(--accent); background: rgba(0,15,175,0.1); padding: 1px 5px; border-radius: 3px; }
+
+  footer { background: #ffffff; border-top: 1px solid var(--border); padding: 44px 24px; text-align: center; color: var(--text-mute); }
   footer .fbrand { font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text); }
   footer .fsmall { font-size: 11px; color: #5a6e87; max-width: 740px; margin: 14px auto 0; }
   footer a { color: var(--accent); text-decoration: none; }
 </style>
 </head>
 <body>
+<div id="landing">
 
 <nav>
   <div class="wrap">
     <a class="brand" href="#top"><span class="dot"></span>Trellis<small>Intelligence LLC</small></a>
     <div class="navlinks">
-      <a href="#domains">Domains &amp; demos</a>
-      <a href="#how">How it works</a>
-      <a href="#why">Why Trellis</a>
-      <a class="cta" href="#contact">Talk to us</a>
+      <a href="#how">Solution</a>
+      <a href="#domains">Use cases</a>
+      <a href="#why">Benefits</a>
+      <a class="cta" href="#contact">Book a demo</a>
     </div>
   </div>
 </nav>
@@ -161,77 +264,52 @@
     <span class="eyebrow">Trellis Intelligence</span>
     <h1 class="hero">Trellis</h1>
     <div class="hero-underline"></div>
-    <p class="hero-tagline">the reasoning framework on which mission-driven intelligence grows</p>
-    <p class="hero-sub">Every organization has the data. Reasoning across it still happens in people's heads. Trellis is the missing layer — a mission-configured reasoning system that fuses records, documents, voice, and sensors into one connected graph, where every answer arrives with its evidence.</p>
+    <p class="hero-tagline">AI for the people who have to make the call</p>
+    <p class="hero-sub">The flight dispatcher deciding which arrivals to hold or reroute tonight. The patent examiner deciding whether a claim is truly novel. The credit analyst tracing how one downgrade ripples through a company's suppliers and counterparties. The doctor piecing together a patient's full record before the visit. They already have the data — but the reasoning still happens in their heads, across systems that never talk to each other. Trellis is the missing layer: an <b>agent that goes and gets the data, connects it across every source, and answers you in plain language</b> — with the evidence attached to every claim.</p>
+    <div class="hero-agent">
+      <span class="ha-step">📥&nbsp; Brings the data in</span><span class="sep">→</span>
+      <span class="ha-step">🕸&nbsp; Connects it across sources</span><span class="sep">→</span>
+      <span class="ha-step">💬&nbsp; Answers in plain language, cited</span>
+    </div>
     <div class="hero-btns">
-      <a class="btn btn-primary" href="#domains">▶  See the live demos</a>
+      <a class="btn btn-primary" href="#domains">▶  See it answer real questions</a>
       <a class="btn btn-ghost" href="#how">How it works</a>
     </div>
   </div>
 </header>
 
-<!-- ============ DOMAINS + LIVE DEMOS ============ -->
+<!-- ============ SOLUTION (how it works) ============ -->
+<section class="alt" id="how">
+  <div class="wrap">
+    <div class="sec-eyebrow">The solution</div>
+    <h2>One framework. Point it at your mission.
+      <span class="sub">Describe the mission, point at your data. Trellis drafts the ontology, you confirm it, and every source flows into one graph a reasoning agent traverses — in plain language, with a full evidence trail.</span></h2>
+    <div class="cap-grid">
+      <div class="cap-card"><div class="stepno">01</div><div class="k">Automated ontology</div><h3>Generated, not hand-built</h3><p>State the mission, point at the data — Trellis drafts the ontology and the expert confirms it. Days, not months of services.</p></div>
+      <div class="cap-card"><div class="stepno">02</div><div class="k">Multimodal fusion</div><h3>Any modality, one graph</h3><p>Records, documents, time-series, voice, video, imagery, sensors — fused into one graph where the cross-source relationships are the intelligence.</p></div>
+      <div class="cap-card"><div class="stepno">03</div><div class="k">Reasoning &amp; decisions</div><h3>Answers you can trust</h3><p>The agent traverses the graph for evidence; tactical decisions come from trained policies whose rule paths are inspectable.</p></div>
+      <div class="cap-card"><div class="stepno">04</div><div class="k">Provenance</div><h3>Explainability by design</h3><p>Every entity, edge, and answer carries source, timestamp, and confidence — explanations a regulator can read.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ USE CASES (domains + live demos) ============ -->
 <section id="domains">
   <div class="wrap">
-    <h2>One framework, many missions
-      <span class="sub">Five domains demonstrated on real data today — the same code, different missions. Click any domain to run its live demo below.</span></h2>
+    <div class="sec-eyebrow">Use cases</div>
+    <h2>Pick who you are. Ask what they'd ask.
+      <span class="sub">Four missions running on real data today — same code, different domain. Each one below is a real person with a real question. Watch Trellis answer, source by source.</span></h2>
 
-    <div class="domain-row" id="domainRow">
-      <button class="dcard active" data-k="aviation" onclick="selectDomain('aviation')">
-        <div class="ic">✈️</div><div class="nm">Aviation</div>
-        <div class="ds">Pilot, dispatcher &amp; ATC decision support — ADS-B, NOTAMs, weather, and voice fused.</div>
-        <span class="pill">MVP · live demo</span>
-      </button>
-      <button class="dcard" data-k="patents" onclick="selectDomain('patents')">
-        <div class="ic">📄</div><div class="nm">Patent Intelligence</div>
-        <div class="ds">Prior-art &amp; competitive-IP reasoning over the USPTO corpus, examiner-ready.</div>
-        <span class="pill">MVP · live demo</span>
-      </button>
-      <button class="dcard" data-k="weather" onclick="selectDomain('weather')">
-        <div class="ic">🌤️</div><div class="nm">Weather</div>
-        <div class="ds">Foundation-model forecast comparison scored against dual ground truth.</div>
-        <span class="pill">MVP · live demo</span>
-      </button>
-      <button class="dcard" data-k="pmo" onclick="selectDomain('pmo')">
-        <div class="ic">📊</div><div class="nm">Program Mgmt</div>
-        <div class="ds">Cost / schedule / risk reasoning across IMS, EVM, and program records.</div>
-        <span class="pill">MVP · live demo</span>
-      </button>
-      <button class="dcard" data-k="health" onclick="selectDomain('health')">
-        <div class="ic">🩺</div><div class="nm">Health</div>
-        <div class="ds">Personal-health-record reasoning — conditions, labs, meds connected and checked.</div>
-        <span class="pill">MVP · live demo</span>
-      </button>
-    </div>
-
-    <div class="demo-shell">
-      <div class="demo-bar">
-        <span class="d d1"></span><span class="d d2"></span><span class="d d3"></span>
-        <span class="title mono" id="demoTitle">trellis · aviation trellis · Ask agent</span>
-        <span class="live"><span class="blip"></span>real data</span>
-      </div>
-      <div class="demo-body">
-        <div class="ask-row">
-          <div class="ask-input">
-            <div class="q-label">Ask the <span id="askDomain">aviation</span> Trellis</div>
-            <span id="askText"></span>
-          </div>
-          <button class="run-btn" id="runBtn" onclick="runDemo()">Run&nbsp;▸</button>
-        </div>
-        <div class="steps" id="steps"></div>
-        <div class="demo-note">
-          Built on real rows from the Trellis knowledge graphs. In the live system this same question runs through the Ask agent's <code>sql</code> / <code>cypher</code> / <code>vector_search</code> tools; here the answer is pre-fetched for the web.
-        </div>
-      </div>
-    </div>
+    <div id="domainBands"></div>
 
     <p class="intro" style="margin-top:34px">Cybersecurity, defense multi-domain ops, space operations, and energy are ready to stand up next — each with a clear data backbone and the same architecture.</p>
   </div>
 </section>
 
-<!-- ============ WHY TRELLIS ============ -->
+<!-- ============ BENEFITS (why trellis) ============ -->
 <section class="alt" id="why">
   <div class="wrap">
+    <div class="sec-eyebrow">Benefits</div>
     <h2>Cheaper, faster, better, safer
       <span class="sub">Against every platform in the conversation — deployable alongside whatever a client already runs.</span></h2>
     <div class="val-grid">
@@ -251,44 +329,88 @@
   </div>
 </section>
 
-<!-- ============ HOW IT WORKS ============ -->
-<section id="how">
-  <div class="wrap">
-    <h2>The connection <em>is</em> the intelligence
-      <span class="sub">Describe the mission, point at your data. Trellis drafts the ontology, you confirm it, and every source flows into one graph a reasoning agent traverses — in plain language, with a full evidence trail.</span></h2>
-    <div class="cap-grid">
-      <div class="cap-card"><div class="k">Automated ontology</div><h3>Generated, not hand-built</h3><p>State the mission, point at the data — Trellis drafts the ontology and the expert confirms it. Days, not months of services.</p></div>
-      <div class="cap-card"><div class="k">Multimodal fusion</div><h3>Any modality, one graph</h3><p>Records, documents, time-series, voice, video, imagery, sensors — fused into one graph where the cross-source relationships are the intelligence.</p></div>
-      <div class="cap-card"><div class="k">Reasoning &amp; decisions</div><h3>Answers you can trust</h3><p>The agent traverses the graph for evidence; tactical decisions come from trained policies whose rule paths are inspectable.</p></div>
-      <div class="cap-card"><div class="k">Provenance</div><h3>Explainability by design</h3><p>Every entity, edge, and answer carries source, timestamp, and confidence — explanations a regulator can read.</p></div>
-    </div>
-  </div>
-</section>
-
 <!-- ============ CONTACT ============ -->
-<section class="alt" id="contact">
+<section id="contact">
   <div class="wrap">
     <div class="cta-box">
-      <h2>From MVP to fully deployable
-        <span class="sub">The framework is live in five domains. The last mile is a small, specific team and a hardening roadmap — not a research question.</span></h2>
-      <div class="cta-team">
-        <div class="t"><div class="n">2</div><div class="l">AI engineers — productionize ingestion, ontology generation, and the reasoning agent.</div></div>
-        <div class="t"><div class="n">1</div><div class="l">Security engineer — auth, access control, and the NIST 800-53 / FedRAMP path.</div></div>
-        <div class="t"><div class="n">1</div><div class="l">Product lead — onboarding, ontology-review UX, and self-service packaging.</div></div>
-        <div class="t"><div class="n">12mo</div><div class="l">To deployable — hardened platform, first paid pilot, agency-ready security package.</div></div>
-      </div>
-      <p class="intro" style="margin:0 auto 24px">Founder-led, with 17+ years across FAA, MITRE, and federal program delivery. We're open to a funded pilot, strategic investment, or a co-delivery partnership.</p>
-      <a class="btn btn-primary" href="mailto:anahita.imanian@gmail.com?subject=Trellis%20—%20let's%20talk">Start a conversation ▸</a>
+      <h2>See Trellis reason over your data
+        <span class="sub">Point it at one mission — a ratings desk, a research workflow, a data feed you already own — and watch it bring the sources together and answer, with the evidence attached. A working demo on representative data, in days.</span></h2>
+      <a class="btn btn-primary" href="mailto:aimanian@trellis-intelligence.com?subject=Trellis%20—%20book%20a%20demo">Book a demo ▸</a>
     </div>
   </div>
 </section>
 
 <footer>
   <div class="wrap">
-    <p><span class="fbrand">Trellis</span> · a product of Trellis Intelligence LLC · <a href="mailto:anahita.imanian@gmail.com">contact</a></p>
-    <p class="fsmall">© 2026 Trellis Intelligence LLC · All rights reserved. Demos are built on real rows from the Trellis knowledge graphs (aviation, patents, weather, program-management, and personal-health-record trellises); values are pre-fetched for the web. The health demo is decision support for a clinician to review — not medical advice. Implementation specifics are discussed under engagement agreements.</p>
+    <p><span class="fbrand">Trellis</span> · a product of Trellis Intelligence LLC · <a href="mailto:aimanian@trellis-intelligence.com">contact</a></p>
+    <p class="fsmall">© 2026 Trellis Intelligence LLC · All rights reserved. Demos are built on real rows from the Trellis knowledge graphs (aviation, patents, weather, and personal-health-record trellises); values are pre-fetched for the web. The health demo is decision support for a clinician to review — not medical advice. Implementation specifics are discussed under engagement agreements.</p>
   </div>
 </footer>
+
+</div><!-- /landing -->
+
+<div id="demoPage" style="display:none">
+  <nav>
+    <div class="wrap">
+      <a class="brand" href="#" onclick="showLanding();return false;"><span class="dot"></span>Trellis<small>Intelligence LLC</small></a>
+      <div class="navlinks">
+        <a href="#" onclick="showLanding();return false;">← All domains</a>
+        <a class="cta" href="#" onclick="showLanding();setTimeout(function(){location.hash='contact';},60);return false;">Talk to us</a>
+      </div>
+    </div>
+  </nav>
+  <section style="padding-top:34px;padding-bottom:40px">
+    <div class="wrap">
+      <a href="#" class="back-link" onclick="showLanding();return false;">← Back to all domains</a>
+      <div class="demo-tabs" id="demoTabs"></div>
+
+      <!-- Domain hero: conversational chat mockup (question + cited answer) -->
+      <div class="dhero">
+        <div class="dhero-media" id="demoFig"></div>
+        <div class="dhero-copy">
+          <div class="dh-eyebrow" id="dhEyebrow"></div>
+          <h1 id="dhTitle"></h1>
+          <p class="mission" id="dhMission"></p>
+          <div class="dh-run">
+            <button class="run-btn" id="runBtn" onclick="runDemo()">▶&nbsp;&nbsp;See the full traced answer</button>
+            <span style="font-size:12.5px;color:var(--text-mute)">watch the agent walk every source, step by step</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="alt" style="padding-top:36px">
+    <div class="wrap">
+      <div class="demo-shell" style="margin-top:0">
+        <div class="demo-bar">
+          <span class="d d1"></span><span class="d d2"></span><span class="d d3"></span>
+          <span class="title mono" id="demoTitle"></span>
+          <span class="live"><span class="blip"></span>real data</span>
+        </div>
+        <div class="demo-body">
+          <div class="steps" id="steps"></div>
+          <div class="demo-note">Built on real rows from the Trellis knowledge graphs. In the live system this question runs through the Ask agent's <code>sql</code> / <code>cypher</code> / <code>vector_search</code> tools; here the answer is pre-fetched for the web.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:30px">
+    <div class="wrap">
+      <!-- Grouped conversational question showcase -->
+      <div class="qshow">
+        <h2 id="qshowTitle"></h2>
+        <p class="lead" id="qshowLead"></p>
+        <div class="qgroups" id="qGroups"></div>
+        <p class="qshow-note">Every question runs against the live <span id="qshowDomain"></span> knowledge graph through the Ask agent — each answer arrives with a <code>Provenance</code> trail citing the tables, edges, and source systems behind it.</p>
+      </div>
+      <div style="text-align:center;margin-top:40px">
+        <a class="btn btn-ghost" href="#" onclick="showLanding();return false;">← Explore the other domains</a>
+      </div>
+    </div>
+  </section>
+</div><!-- /demoPage -->
 
 <script>
   var C = { blue:'var(--accent)', pink:'var(--accent-2)', gold:'var(--accent-3)', green:'var(--good)' };
@@ -296,8 +418,36 @@
   var DEMOS = {
     aviation: {
       bar: 'trellis · aviation trellis · Ask agent',
+      fig: {src:'assets/aviation_track.gif', cap:'<b>Real ADS-B</b> — DAL1514 descending Miami → KJFK, colored by altitude.'},
       label: 'aviation',
+      eyebrow: 'Aviation · AeroSense',
+      title: 'For the people getting the aircraft down safely',
+      mission: "Dispatcher, pilot, controller — ADS-B, FAA NOTAMs, NOAA weather, and live ATC voice are four systems that never talk to each other. Trellis fuses them into one briefing for one flight, every value cited.",
+      qa: {
+        q: "Give me the arrival advisory for Delta 1514 into JFK — and check it against what ATC actually said.",
+        a: "Delta 1514 (Miami → JFK, 297 ADS-B points) is on descent. The arrival policy recommends <b>descend &amp; maintain 2,000 ft, turn heading 030</b> — and KJFK Approach was recorded saying exactly that: <i>“Delta 1514, fly heading 030, descend and maintain 2,000.”</i> ✓ The advisory matches the controller's live clearance. Runway 04/22 has an active NOTAM; the field is VFR, wind 200° @ 9 kt.",
+        chips: ["advisory ✓ matches ATC","NOTAM RWY 04/22","VFR"],
+        prov: "OpenSky ADS-B · LiveATC→Whisper · FAA SWIM · NOAA METAR"
+      },
       q: "Give me the arrival advisory for Delta&nbsp;1514 into KJFK — and verify it against what ATC actually said, plus any NOTAMs and the weather it's landing in.",
+      qshowLead: "The questions a dispatcher, pilot, or controller actually asks — grouped by phase of flight. Everything below runs on real ADS-B, FAA SWIM, and NOAA feeds.",
+      groups: [
+        { t:'Pre-flight', i:'🛫', c:C.blue, qs:[
+          "I'm the dispatcher tonight — which of my New York-area arrivals are being held by an active flow program right now, and which programs are hitting them? Trace AAL1509 and UAL2247 to the specific programs restricting each.",
+          "Brief me on JFK before I go: the latest weather observation, the current forecast, and how heavy the inbound arrival push looks right now.",
+          "Before wheels-up — which NOTAMs and weather actually sit on my route, and is my destination about to fall below minima?",
+          "Which runway should I plan for at JFK given the current wind?",
+          "Find me a clean alternate — an airport that's VFR now and isn't under any flow restriction." ] },
+        { t:'In-flight', i:'✈️', c:C.pink, qs:[
+          "Did SWA548 actually fly through any active NOTAMs on its way in? Show me which ones its track crossed — and confirm they overlapped in space, time, and altitude, not just that they existed.",
+          {t:"What did air-traffic control actually tell DAL1514 to do, and would our AI have given the same instruction? Walk through the radio calls and compare each to the AI's advisory.", flag:true},
+          "Where's the rough air right now between FL200 and FL280, and which flights are reporting it?",
+          "Is anything hazardous in DAL1514's way — NOTAMs or weather it's about to cross?" ] },
+        { t:'Post-flight', i:'🛬', c:C.gold, qs:[
+          "Re-fly DAL1514's arrival into JFK with our AI advisor in control — show me step by step what it would have recommended on the published arrival, then animate it.",
+          "Which flights were the most operationally disrupted today — hit by a NOTAM, a weather hazard, and a flow program at once?",
+          "Why was AAL1509 delayed? Walk me through every flow program and hazard on its route." ] }
+      ],
       steps: [
         { c:C.blue, icon:'✈️', k:'1 · Flight resolved — OpenSky ADS-B', title:'Delta 1514 · Miami (KMIA) → New York (KJFK)',
           body:'ICAO24 <span class="mono">a44197</span> · 2026-06-19 · <b>297 ADS-B track points</b> · descending from FL370 (11,277 m) into the KJFK terminal area.',
@@ -323,38 +473,95 @@
 
     patents: {
       bar: 'trellis · patents trellis · Ask agent',
-      label: 'patents',
-      q: "For our weather-forecasting filing, who else holds art in its classification — and what have examiners cited to reject similar claims?",
-      steps: [
-        { c:C.blue, icon:'📄', k:'1 · Application — USPTO Open Data Portal', title:'“Long-term weather forecasting framework using statistical analysis”',
-          body:'Application <span class="mono">19357322</span>, pulled with full bibliographic data, claims, and prosecution history from the USPTO corpus (<b>1,932 applications</b> in this trellis).',
-          chips:['app 19357322','weather / ML','claims + spec'], prov:'source: USPTO ODP · node n_PatentApplication' },
-        { c:C.gold, icon:'🗂️', k:'2 · Classification — CPC scheme', title:'Classified under G01W · Meteorology',
-          body:'The graph resolves the filing to its CPC class and walks to <b>every other application in the same class</b> — the competitive art landscape.<div class="chips"><span class="chip">CPC G01W</span><span class="chip">4,046 classes indexed</span></div>',
-          prov:'source: CPC scheme (USPTO/EPO) · edge PatentApplication → CPCClass' },
-        { c:C.pink, icon:'🏢', k:'3 · Competitors — assignee traversal', title:'Who else holds art in this class',
-          body:'Same-class assignees surface directly from the graph — e.g. <b>Huawei Technologies</b>, <b>Textron Innovations</b>, and other holders working the same forecasting problem.<div class="chips"><span class="chip">Huawei Technologies</span><span class="chip">Textron Innovations</span><span class="chip">+ more</span></div>',
-          prov:'source: USPTO assignment data · edge PatentApplication → Assignee' },
-        { c:C.blue, icon:'⚖️', k:'4 · Prosecution — office actions (OCR + parse)', title:'What examiners cited to reject similar claims',
-          body:'<b>2,299 office actions</b> in the corpus are OCR-read and parsed for rejection grounds. §103 (obviousness) rejections carry the exact prior US patents the examiner cited — a ready-made §103 chain.<div class="chips"><span class="chip">§103 obviousness</span><span class="chip">cited prior art</span><span class="chip">2,299 OAs</span></div>',
-          prov:'source: USPTO documents + rapidocr · node n_OfficeAction (has_103_rejection, cited_us_patent_numbers)' }
+      label: 'patents', who: 'patent examiner',
+      fig: {src:'assets/patents_trend.png', cap:'<b>Real USPTO data</b> — the weather-tech filing trend and top applicants around the Rockwell Collins turbulence filing.'},
+      eyebrow: 'Patents · Prior-art intelligence',
+      title: 'For the people deciding what is truly novel',
+      mission: "Examiner and attorney, same corpus, different job. Classification, the filing trend, and OCR-read office actions are separate USPTO datasets — Trellis walks them into one §102/§103 chain, every fact traceable to its source record.",
+      qa: {
+        q: "For Rockwell Collins' application 17/486,317, what prior art did the examiner cite — and how did it resolve?",
+        a: "It's a turbulence-detection radar filing (CPC <b>G01S 13/95</b>), examiner Bernarr Gregory. The office action rejected claims 1 &amp; 4–5 as anticipated under <b>§102(e) over Woodell US 7,515,088 B1</b>, and claims 3–4 as obvious under §103(a). The applicant amended over Woodell → <b>“Patented Case.”</b>",
+        chips: ["Woodell ’088","§102(e) + §103(a)","granted"],
+        prov: "USPTO ODP · CPC scheme · OCR'd office action"
+      },
+      q: "A patent-examiner working session — three consecutive questions over one real filing, each answered by walking the graph.",
+      qshowLead: "1,932 real USPTO applications, prosecution history OCR'd and connected. The questions an examiner or an attorney would actually run.",
+      groups: [
+        { t:'For the examiner', i:'👩‍⚖️', c:C.gold, qs:[
+          {t:"I'm examining a turbulence-detection radar filing — what field does it sit in, and how active is that space?", flag:true},
+          {t:"For Rockwell Collins' application 17/486,317, what prior art did the examiner cite — and on what statutory basis?", flag:true},
+          "Help me build a §103 obviousness rejection for this application — find the closest prior art in our corpus and map it claim-element by claim-element.",
+          "Across the applications that received office actions, how do §102 anticipation vs §103 obviousness grounds break down?" ] },
+        { t:'For the attorney', i:'💼', c:C.blue, qs:[
+          "My client is about to file this claim — find the 5 most similar existing patents in our corpus and assess the risk.",
+          "Who are the top assignees in radar-based hydrometeor classification, and how crowded is the space?",
+          "For this application, who else holds art in its class — and what did examiners cite against work like it?",
+          "Is this invention likely blocked by prior art, or is there room to file around it?" ] }
       ],
-      verdict:'One filing → the whole competitive & prior-art picture.',
-      verdictBody:'Classification, competitor portfolios, and prosecution history — three independent USPTO datasets — assembled into a <b>§103 obviousness picture</b> for one application, with every cited patent traceable to the office action it came from.',
-      center:{label:'Application', sub:'19357322'},
-      sats:[{e:'🗂️',l:'CPC G01W',c:C.gold},{e:'🏢',l:'competitors',c:C.pink},{e:'⚖️',l:'office action',c:C.blue},{e:'📎',l:'prior art',c:C.green}]
+      convo: [
+        { q: "I'm examining a turbulence-detection radar filing. What field does it sit in, and how active is that space?",
+          steps: [
+            { c:C.gold, icon:'🗂️', k:'classification — CPC scheme', title:'Resolved to CPC G01S 13/95 · weather radar',
+              body:'The graph classifies the filing and walks to every co-classified application: <b>88 filings in G01S 13/95</b> alone, inside a <b>1,932-application</b> weather-tech corpus.<div class="chips"><span class="chip">CPC G01S 13/95</span><span class="chip">88 in-class</span><span class="chip">1,932 corpus</span></div>',
+              prov:'source: CPC scheme (USPTO/EPO) · edge CLASSIFIED_UNDER' },
+            { c:C.blue, icon:'📈', k:'field activity — filing trend', title:'~370 filings/yr through 2022, then easing',
+              body:'Filings held near 380/yr into 2022 (2025–26 are understated by the ~18-month publication lag). Most-active applicants in the corpus: <b>IBM (48)</b>, Robert Bosch (23), Google, Mitsubishi Electric, NXP, and Korea’s NIMS. <em>(See the trend + applicants plot above.)</em>',
+              prov:'source: USPTO bibliographic data · filing_year · first_applicant_name' }
+          ] },
+        { q: "For Rockwell Collins' application 17/486,317, what prior art did the examiner cite — and on what basis?",
+          steps: [
+            { c:C.blue, icon:'📄', k:'the filing — USPTO Open Data Portal', title:'"System and Method for Turbulence Detection" · Rockwell Collins (2021)',
+              body:'Application <span class="mono">17/486,317</span>, examiner <b>Bernarr E. Gregory</b> (art unit 3648). Full prosecution history is on the graph.<div class="chips"><span class="chip">Rockwell Collins</span><span class="chip">art unit 3648</span><span class="chip">filed 2021</span></div>',
+              prov:'source: USPTO ODP · node n_PatentApplication:17486317' },
+            { c:C.pink, icon:'⚖️', k:'prior art — office action (OCR + parse)', title:'Rejected over one reference: Woodell et al, US 7,515,088 B1',
+              body:'The OCR-read office action, parsed on the graph, gives the exact rejection:<div class="quote">"Claims 1 and 4–5 … anticipated by Woodell et al (US 7,515,088 B1)" — §102(e).<br>"Claims 3 and 4 … unpatentable over Woodell (’088)" — §103(a).</div><div class="chips"><span class="chip">US 7,515,088 B1</span><span class="chip">§102(e) anticipation</span><span class="chip">§103(a) obviousness</span></div>',
+              prov:'source: rapidocr → OfficeAction text · edge HAS_OFFICE_ACTION' }
+          ] },
+        { q: "How did it resolve — and can I trust this without re-reading the full file wrapper?",
+          steps: [
+            { c:C.green, icon:'✅', k:'outcome — prosecution status', title:'Amended over Woodell ’088 → granted',
+              body:'After the applicant amended the claims to distinguish Woodell ’088, the application reached <b>"Patented Case."</b> The whole §102/§103 chain — exact reference, claims, and statutory basis — is reconstructed from the OCR-read PDF, so the novelty picture is <span class="match">examiner-ready without opening the wrapper</span>.',
+              prov:'source: application_status_text = Patented Case · reconstructed §102/§103 chain' }
+          ] }
+      ],
+      verdict:'One filing → field, prior art, and outcome — traced end to end.',
+      verdictBody:'CPC classification, the filing trend, and the OCR-read office action — independent USPTO datasets — assembled into a <b>specific §102/§103 chain</b>: Rockwell Collins’ turbulence-detection claims, rejected over <b>Woodell US 7,515,088 B1</b>, amended, and granted — every fact traceable to its source record.',
+      center:{label:'17/486,317', sub:'the filing'},
+      sats:[{e:'🗂️',l:'CPC G01S 13/95',c:C.gold},{e:'⚖️',l:'office action',c:C.blue},{e:'📎',l:'Woodell ’088',c:C.pink},{e:'✅',l:'granted',c:C.green}]
     },
 
     weather: {
       bar: 'trellis · weather trellis · Ask agent',
+      fig: {src:'assets/weather_heatmap.gif', cap:'<b>Real Aurora forecast</b> — 2-m temperature over the KJFK region, evolving 1–6 July 2026.'},
       label: 'weather',
+      eyebrow: 'Weather · Foundation-model comparison',
+      title: 'For the people who have to pick a model',
+      mission: "Three AI foundation models and the operational baseline, run in real inference and scored against two independent truth sources at JFK. 'Best model' turns out to be a question about which truth you trust — and Trellis makes that answer defensible and reproducible.",
+      qa: {
+        q: "Which AI weather model should I trust for JFK — and does it change with the truth source?",
+        a: "On 31 May 2026, 6-hour temperature error at JFK vs <b>METAR</b>: Aurora 0.89 K, Pangu 1.42 K, Prithvi 2.05 K, HRRR 3.20 K — both foundation models beat the operational baseline. But score against <b>ERA5 reanalysis</b> and the winner can flip: on 1 July, <b>Pangu leads</b>. Same forecasts, different truth.",
+        chips: ["Aurora best vs METAR","Pangu best vs ERA5","HRRR baseline"],
+        prov: "NOAA METAR · ERA5 reanalysis · WxSkillSummary"
+      },
       q: "Which AI weather model should I trust for KJFK — and does the answer change depending on the truth source?",
+      qshowLead: "Prithvi, Aurora, Pangu and the HRRR baseline — real inference, scored per model × variable × lead × truth source. The questions a forecaster or an evaluator would ask.",
+      groups: [
+        { t:'Which model do I trust', i:'🛰️', c:C.blue, qs:[
+          {t:"Which AI weather model should I trust for JFK — and does the answer change depending on the truth source?", flag:true},
+          "Show the 6-hour temperature error at JFK for each model against what the pilot actually observed.",
+          "Plot JFK's actual temperature against every model's 6-hour forecast for the first week of July." ] },
+        { t:'Truth & reproducibility', i:'🔬', c:C.pink, qs:[
+          "Does the winning model change when I score against ERA5 reanalysis instead of METAR observations?",
+          "Show me a temperature heatmap over JFK — Aurora and Pangu side by side against the HRRR baseline." ] },
+        { t:'Across domains', i:'🔗', c:C.gold, qs:[
+          "The models come from IBM/NASA, Microsoft, Huawei and Google — who owns the weather-ML patents behind them?" ] }
+      ],
       steps: [
         { c:C.blue, icon:'🛰️', k:'1 · Models — real inference, scored', title:'Three foundation models vs the operational baseline',
           body:'IBM/NASA <b>Prithvi</b> (2.3 B), Microsoft <b>Aurora</b> (1.3 B), Huawei <b>Pangu</b> (100 M) run real inference against NOAA <b>HRRR</b>, the operational NWP baseline.',
           chips:['Prithvi 2.3B','Aurora 1.3B','Pangu 100M','HRRR baseline'], prov:'source: HuggingFace + NOAA HRRR · nodes n_WxModel / n_WxModelRun' },
         { c:C.green, icon:'📊', k:'2 · Scored vs METAR (operational truth)', title:'6-hour temperature error at KJFK · 31 May 2026',
-          body:'Mean absolute error against the station observation the pilot actually sees:<div class="chips"><span class="chip">Aurora 0.89 K</span><span class="chip">Pangu 1.42 K</span><span class="chip">Prithvi 2.05 K</span><span class="chip">HRRR 3.20 K</span></div>Both foundation models beat the operational baseline.',
+          body:'Mean absolute error against the station observation the pilot actually sees:<div class="chips"><span class="chip">Aurora 0.89 K</span><span class="chip">Pangu 1.42 K</span><span class="chip">Prithvi 2.05 K</span><span class="chip">HRRR 3.20 K</span></div>Both foundation models beat the operational baseline.<img class="step-img" src="assets/weather_mae.png" alt="model accuracy bar chart">',
           prov:'source: NOAA METAR · node n_WxSkillSummary (MAE · aviation truth)' },
         { c:C.pink, icon:'🔀', k:'3 · Dual truth — the ranking can flip', title:'METAR (operational) vs ERA5 (academic) truth',
           body:'Scored against <b>ERA5 reanalysis</b> — what every foundation-model paper benchmarks on — the winner can change: Aurora leads on METAR, but on 1 July <b>Pangu leads on ERA5</b>. Same forecasts, different truth.',
@@ -366,31 +573,34 @@
       sats:[{e:'🛰️',l:'Aurora',c:C.blue},{e:'🛰️',l:'Pangu',c:C.pink},{e:'🛰️',l:'Prithvi',c:C.gold},{e:'📡',l:'METAR',c:C.green},{e:'🔬',l:'ERA5',c:C.blue}]
     },
 
-    pmo: {
-      bar: 'trellis · program-management trellis · Ask agent',
-      label: 'program management',
-      q: "Which work packages are over budget AND blocked by an open risk — and what's the causal chain?",
-      steps: [
-        { c:C.gold, icon:'💰', k:'1 · Cost — EVM snapshot', title:'A work package running hot on cost',
-          body:'The earned-value snapshot shows a <b>Cost Performance Index of 0.69</b> — the package is earning ~69¢ of value per dollar spent (a real cost overrun), against a $1.36 M budget-at-completion.<div class="chips"><span class="chip">CPI 0.69</span><span class="chip">over budget</span><span class="chip">BAC $1.36 M</span></div>',
-          prov:'source: EVM cost system · node n_EVMSnapshot (cpi · bac · eac)' },
-        { c:C.pink, icon:'⚠️', k:'2 · Schedule risk — ARM risk register', title:'An open HIGH risk on the same package',
-          body:'<div class="quote">“Equipment Vendor Lead Times — lead times for E-IDS equipment vendors may delay site preparation.”</div><div class="chips"><span class="chip">Schedule · HIGH</span><span class="chip">status open</span><span class="chip">pkg E-IDS</span></div>',
-          prov:'source: ARM risk register · node n_Risk (category · severity · status)' },
-        { c:C.blue, icon:'🔗', k:'3 · Connect — cost × schedule, one package', title:'The two independent systems point at the same work',
-          body:'Trellis joins the EVM cost feed and the risk register through the work package — surfacing packages that are <b>failing on cost AND carrying an open schedule risk at once</b>, with the causal chain attached rather than two disconnected flags.',
-          prov:'source: cross-source join · JCN → EVMSnapshot + JCN → Risk' }
-      ],
-      verdict:'A cross-system roll-up with its causal chain.',
-      verdictBody:'EVM cost data and the risk register are separate systems that never reconcile automatically. Trellis makes the connection queryable — <b>“show me packages over budget and at schedule risk”</b> — and every number traces to its source record.',
-      center:{label:'Work pkg', sub:'E-IDS / JCN'},
-      sats:[{e:'💰',l:'EVM cost',c:C.gold},{e:'⚠️',l:'risk',c:C.pink},{e:'📅',l:'schedule',c:C.blue},{e:'📦',l:'NEEDS pkg',c:C.green}]
-    },
-
     health: {
       bar: 'trellis · personal-health-record trellis · Ask agent',
+      fig: {src:'assets/health.png', cap:'<b>Real cardiac panel</b> from the personal health record, shown against normal clinical ranges.'},
       label: 'health',
+      eyebrow: 'Health · Personal-record reasoning',
+      title: 'For the person reading their own record',
+      mission: "Conditions, labs, and medications live in separate sections of a health record no patient reads end to end. Trellis connects them into one reasoning trace and flags the intersection for a clinician to review — decision support, every fact cited to your own record. Not medical advice.",
+      qa: {
+        q: "I'm having chest pain — what in my record is relevant, and is anything I'm taking worth flagging?",
+        a: "Your problem list carries <b>“ischemic chest pain,”</b> linked to your EKG panel (QT 404 ms, QTC 426 ms). Two active meds are NSAIDs — <b>ibuprofen 600 mg</b> and <b>naproxen 500 mg</b> — which carry cardiovascular cautions worth your clinician's review. Every fact is cited to your own record. <span style=\"color:var(--good);font-weight:600\">Not medical advice.</span>",
+        chips: ["ischemic chest pain","EKG QTC 426 ms","NSAIDs · CV caution"],
+        prov: "Epic MyChart C-CDA · problem list · medication list"
+      },
       q: "I'm having chest pain — what in my own health record is relevant, and is anything I'm taking worth flagging for my doctor?",
+      qshowLead: "A real Epic MyChart export — 65 encounters, 258 labs, connected into one graph. The questions a patient would actually want answered before a visit.",
+      groups: [
+        { t:'Understand my record', i:'🗂️', c:C.blue, qs:[
+          "What's in my record? One-screen summary of encounters, active problems, medications, and labs.",
+          "Give me a timeline of my encounters — date, reason, location, and the provider I saw.",
+          "For each of my active medications, show the condition it treats." ] },
+        { t:'Safety & what matters', i:'❤️', c:C.pink, qs:[
+          {t:"I'm having chest pain — what in my own record is relevant, and is anything I'm taking worth flagging for my doctor?", flag:true},
+          "Cross-check my allergies against my active medications — is anything chemically related?",
+          "Which of my abnormal lab results corroborate a diagnosis on my problem list?" ] },
+        { t:'Loose ends & follow-ups', i:'🔁', c:C.gold, qs:[
+          "Across my whole record — did a report recommend a follow-up that no later visit ever closed?",
+          "Plot my HbA1c (or LDL) over time against its reference range so I can see the trend." ] }
+      ],
       steps: [
         { c:C.blue, icon:'🗂️', k:'1 · Record — Epic MyChart export (C-CDA)', title:'Your own record, structured into a graph',
           body:'Ingested from an Epic MyChart <b>Share Everywhere</b> export: <b>65 encounters</b>, <b>258 lab results</b>, conditions, medications, vitals, allergies — all provenance-preserved.',
@@ -418,12 +628,12 @@
       var p = SLOTS[i]; if(!p) return;
       lines += '<line class="gline" x1="'+cx+'" y1="'+cy+'" x2="'+p.x+'" y2="'+p.y+'"></line>';
       var ly = p.y < cy ? p.y-24 : p.y+30;
-      nodes += '<g><circle cx="'+p.x+'" cy="'+p.y+'" r="17" fill="rgba(255,255,255,0.05)" stroke="'+s.c+'" stroke-width="1.5"></circle>'
+      nodes += '<g><circle cx="'+p.x+'" cy="'+p.y+'" r="17" fill="rgba(0,15,175,0.06)" stroke="'+s.c+'" stroke-width="1.5"></circle>'
              + '<text x="'+p.x+'" y="'+(p.y+4)+'" text-anchor="middle" font-size="13">'+s.e+'</text>'
              + '<text x="'+p.x+'" y="'+ly+'" text-anchor="middle" font-size="9" fill="var(--text-mute)">'+s.l+'</text></g>';
     });
     return '<svg viewBox="0 0 640 200" aria-label="connection graph">'+lines
-      + '<circle cx="'+cx+'" cy="'+cy+'" r="34" fill="rgba(76,201,240,0.16)" stroke="var(--accent)" stroke-width="2"></circle>'
+      + '<circle cx="'+cx+'" cy="'+cy+'" r="34" fill="rgba(0,15,175,0.16)" stroke="var(--accent)" stroke-width="2"></circle>'
       + '<text x="'+cx+'" y="'+(cy-1)+'" text-anchor="middle" font-size="12" fill="var(--text)" font-weight="700">'+d.center.label+'</text>'
       + '<text x="'+cx+'" y="'+(cy+13)+'" text-anchor="middle" font-size="9" fill="var(--text-mute)">'+d.center.sub+'</text>'
       + nodes + '</svg>';
@@ -431,32 +641,87 @@
 
   var current = 'aviation';
 
+  function buildMock(d) {
+    var chips = (d.qa.chips || []).map(function(c){ return '<span>'+c+'</span>'; }).join('');
+    return '<div class="chatmock">'
+      + '<div class="cm-head"><div class="dot3"><span></span><span></span><span></span></div>'
+      +   'trellis · '+d.label+' · Ask agent<span class="cm-live"><span class="blip"></span>real data</span></div>'
+      + '<div class="cm-body">'
+      +   '<div class="msg user"><div class="who">You ask</div>'+d.qa.q+'</div>'
+      +   '<div class="msg bot"><div class="who">🧠 Trellis answers</div>'+d.qa.a
+      +     (chips ? '<div class="b-chips">'+chips+'</div>' : '')
+      +     '<div class="b-prov">▸ '+d.qa.prov+'</div></div>'
+      + '</div></div>';
+  }
+
   function renderDomain(key) {
     var d = DEMOS[key]; current = key;
     document.getElementById('demoTitle').textContent = d.bar;
-    document.getElementById('askDomain').textContent = d.label;
-    document.getElementById('askText').innerHTML = d.q;
-    var html = '';
-    d.steps.forEach(function(s, i){
-      html += '<div class="step" data-s="'+i+'"><div class="step-card" style="--c:'+s.c+'"><div class="step-icon">'+s.icon+'</div><div class="step-main">'
+    document.getElementById('dhEyebrow').textContent = d.eyebrow || '';
+    document.getElementById('dhTitle').textContent = d.title || '';
+    document.getElementById('dhMission').textContent = d.mission || '';
+    var fig = document.getElementById('demoFig');
+    fig.innerHTML = buildMock(d);
+    fig.setAttribute('style', 'border:none;box-shadow:none;background:none;overflow:visible');
+    // ---- grouped conversational question showcase ----
+    document.getElementById('qshowTitle').textContent = 'What the ' + d.label + ' Trellis answers';
+    document.getElementById('qshowLead').textContent = d.qshowLead || '';
+    document.getElementById('qshowDomain').textContent = d.label;
+    document.getElementById('qGroups').innerHTML = (d.groups || []).map(function(g){
+      var items = g.qs.map(function(q){
+        var txt = (typeof q === 'string') ? q : q.t;
+        var flag = (typeof q === 'object' && q.flag) ? ' <span class="flagtag">▲ live demo above</span>' : '';
+        return '<li>' + txt + flag + '</li>';
+      }).join('');
+      return '<div class="qgroup" style="--gc:'+g.c+'"><div class="gt"><span class="gi">'+g.i+'</span>'+g.t+'</div><ul>'+items+'</ul></div>';
+    }).join('');
+    var stepEl = function(s){
+      return '<div class="step"><div class="step-card" style="--c:'+s.c+'"><div class="step-icon">'+s.icon+'</div><div class="step-main">'
         + '<div class="step-k">'+s.k+'</div><div class="step-title">'+s.title+'</div>'
         + '<div class="step-body">'+s.body+'</div><div class="prov">▸ '+s.prov+'</div></div></div></div>';
-    });
+    };
+    var html = '';
+    if (d.convo) {           // multi-turn conversation (consecutive questions)
+      d.convo.forEach(function(turn, ti){
+        html += '<div class="step"><div class="chat-q"><div class="who">Question '+(ti+1)+' · '+(d.who||'analyst')+'</div>'+turn.q+'</div></div>';
+        turn.steps.forEach(function(s){ html += stepEl(s); });
+      });
+    } else {
+      d.steps.forEach(function(s){ html += stepEl(s); });
+    }
     // verdict + graph step
-    html += '<div class="step" data-s="'+d.steps.length+'"><div class="step-card verdict" style="--c:var(--good)"><div class="step-icon">🧠</div><div class="step-main">'
-      + '<div class="step-k">'+(d.steps.length+1)+' · The answer — one connected trace</div><div class="step-title">'+d.verdict+'</div>'
+    html += '<div class="step"><div class="step-card verdict" style="--c:var(--good)"><div class="step-icon">🧠</div><div class="step-main">'
+      + '<div class="step-k">The answer — one connected trace</div><div class="step-title">'+d.verdict+'</div>'
       + '<div class="demo-graph">'+buildGraph(d)+'</div>'
       + '<div class="step-body" style="text-align:center;margin-top:6px">'+d.verdictBody+'</div></div></div></div>';
     document.getElementById('steps').innerHTML = html;
     var btn = document.getElementById('runBtn'); btn.disabled=false; btn.textContent='Run ▸';
   }
 
-  function selectDomain(key) {
-    document.querySelectorAll('#domainRow .dcard').forEach(function(c){
-      c.classList.toggle('active', c.getAttribute('data-k')===key);
-    });
-    renderDomain(key);
+  // ---- view routing (landing ↔ per-domain demo page) ----
+  var TAB_NAMES = { aviation:'✈️ Aviation', patents:'📄 Patents', weather:'🌤️ Weather', health:'🩺 Health' };
+  function renderTabs(key) {
+    document.getElementById('demoTabs').innerHTML = ['aviation','patents','weather','health'].map(function(k){
+      return '<button class="demo-tab'+(k===key?' active':'')+'" onclick="openDemo(\''+k+'\')">'+TAB_NAMES[k]+'</button>';
+    }).join('');
+  }
+  function showDemoView(key) {
+    document.getElementById('landing').style.display = 'none';
+    document.getElementById('demoPage').style.display = 'block';
+    renderTabs(key); renderDomain(key);
+    window.scrollTo(0, 0);
     runDemo();
+  }
+  function showLandingView() {
+    document.getElementById('demoPage').style.display = 'none';
+    document.getElementById('landing').style.display = 'block';
+  }
+  function openDemo(key) { location.hash = 'demo/' + key; }
+  function showLanding() { location.hash = ''; }
+  function route() {
+    var m = location.hash.match(/^#demo\/(\w+)/);
+    if (m && DEMOS[m[1]]) showDemoView(m[1]);
+    else showLandingView();
   }
 
   function runDemo() {
@@ -480,14 +745,41 @@
     });
   }
 
-  // initial render + auto-run when the domains section scrolls into view
-  renderDomain('aviation');
-  var demoFired = false, demoSec = document.getElementById('domains');
-  window.addEventListener('scroll', function(){
-    if (demoFired) return;
-    var r = demoSec.getBoundingClientRect();
-    if (r.top < window.innerHeight * 0.35 && r.bottom > 0) { demoFired = true; runDemo(); }
-  });
+  // ---- landing page: overwatch-style domain bands (image + conversational questions) ----
+  function renderLandingBands() {
+    var order = ['aviation','patents','weather','health'];
+    var host = document.getElementById('domainBands');
+    if (!host) return;
+    host.innerHTML = order.map(function(k){
+      var d = DEMOS[k];
+      // two extra (non-flagship) example questions for the copy side
+      var picks = [];
+      (d.groups || []).forEach(function(g){
+        g.qs.forEach(function(q){
+          if (picks.length < 2 && typeof q === 'string') picks.push({ who: g.t, t: q });
+        });
+      });
+      var qs = picks.map(function(p){
+        return '<div class="oq"><div class="who">'+p.who+'</div>'+p.t+'</div>';
+      }).join('');
+      // the conversational chat mockup (question -> cited answer)
+      var mock = buildMock(d);
+      return '<div class="oband">'
+        + '<div class="oband-media" style="border:none;box-shadow:none;background:none;overflow:visible">'+mock+'</div>'
+        + '<div class="oband-copy">'
+        +   '<div class="eb">'+d.eyebrow+'</div><h3>'+d.title+'</h3>'
+        +   '<p class="mis">'+d.mission+'</p>'
+        +   '<div style="font-size:12px;color:var(--text-mute);margin:2px 0 10px;font-weight:600;letter-spacing:.02em">More it answers in this mission</div>'+qs
+        +   '<div class="oband-cta"><a class="btn btn-primary" href="#demo/'+k+'">▶&nbsp;&nbsp;See it answer live</a>'
+        +     '<span class="pill">MVP · live demo</span></div>'
+        + '</div></div>';
+    }).join('');
+  }
+
+  // route on load and whenever the hash changes (back/forward works)
+  renderLandingBands();
+  window.addEventListener('hashchange', route);
+  route();
 </script>
 </body>
 </html>
