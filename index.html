@@ -51,6 +51,31 @@
   .hero-tagline { font-size: 26px; font-weight: 700; max-width: 760px; margin: 22px auto 0; color: var(--accent); letter-spacing: -0.01em; }
   .hero-sub { font-size: 18px; color: var(--text-mute); max-width: 740px; margin: 20px auto 0; }
   .hero-sub b { color: var(--text); }
+  .hero-personas { font-size: 15.5px; line-height: 1.66; color: var(--text-mute); max-width: 720px; margin: 16px auto 0; }
+  .hero-personas b { color: var(--text); font-weight: 600; }
+  .fmail { color: var(--text-mute); text-decoration: none; border-bottom: 1px dotted var(--border); }
+  .fmail:hover { color: var(--accent); border-bottom-color: var(--accent); }
+  /* Demo request form */
+  .req-form { max-width: 560px; margin: 22px auto 0; text-align: left; }
+  .req-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 560px) { .req-row { grid-template-columns: 1fr; } }
+  .req-field { margin-bottom: 12px; }
+  .req-field label { display: block; font-size: 12px; font-weight: 700; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--text-mute); margin-bottom: 5px; }
+  .req-field input, .req-field textarea { width: 100%; box-sizing: border-box; font: inherit; font-size: 14.5px;
+    color: var(--text); background: #fff; border: 1px solid var(--border); border-radius: 9px; padding: 10px 12px; }
+  .req-field textarea { min-height: 96px; resize: vertical; }
+  .req-field input:focus, .req-field textarea:focus { outline: none; border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(0,15,175,0.10); }
+  .req-field.bad input, .req-field.bad textarea { border-color: #c0392b; }
+  .req-actions { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-top: 6px; }
+  .req-note { font-size: 12.5px; color: var(--text-mute); }
+  .req-status { margin-top: 14px; font-size: 14px; padding: 12px 14px; border-radius: 9px; display: none; text-align: left; }
+  .req-status.show { display: block; }
+  .req-status.ok { background: rgba(0,15,175,0.06); border: 1px solid rgba(0,15,175,0.20); color: var(--text); }
+  .req-status.err { background: #fdf0ee; border: 1px solid #e4b5ad; color: #8c2d1c; }
+  .req-status textarea { width: 100%; box-sizing: border-box; margin-top: 10px; min-height: 132px;
+    font: inherit; font-size: 12.5px; border: 1px solid var(--border); border-radius: 8px; padding: 10px; background: #fff; }
   .hero-agent { display: inline-flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: center; margin: 24px auto 0; padding: 11px 20px; background: #fff; border: 1px solid var(--border); border-radius: 100px; box-shadow: 0 6px 20px rgba(17,17,17,0.06); }
   .hero-agent .ha-step { font-size: 13.5px; font-weight: 600; color: var(--text); white-space: nowrap; opacity: 1; }
   .hero-agent .sep { color: var(--accent); font-weight: 800; }
@@ -85,6 +110,20 @@
   .about-card { background: var(--bg-card); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 0 12px 12px 0; padding: 20px 22px; }
   .about-card .k { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
   .about-card p { margin: 0; font-size: 14px; color: var(--text-mute); line-height: 1.55; }
+  /* Founder / leadership card */
+  .founder-card { display: grid; grid-template-columns: 200px 1fr; gap: 26px; align-items: start;
+    margin-top: 34px; background: var(--bg-card); border: 1px solid var(--border);
+    border-left: 3px solid var(--accent); border-radius: 0 12px 12px 0; padding: 26px 28px; }
+  .founder-photo { width: 200px; height: 200px; object-fit: cover; border-radius: 12px;
+    border: 1px solid var(--border); }
+  .founder-body .k { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+  .founder-name { margin: 0 0 2px; font-size: 22px; }
+  .founder-role { font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-mute); margin-bottom: 12px; }
+  .founder-body p { margin: 0; font-size: 14.5px; color: var(--text-mute); line-height: 1.62; }
+  .founder-link { display: inline-block; margin-top: 14px; font-size: 13.5px; font-weight: 700; color: var(--accent); text-decoration: none; }
+  .founder-link:hover { text-decoration: underline; }
+  @media (max-width: 640px) { .founder-card { grid-template-columns: 1fr; }
+    .founder-photo { width: 160px; height: 160px; } }
   h2 { font-size: 30px; text-align: center; margin: 0 0 10px; font-weight: 700; letter-spacing: -0.01em; }
   h2 .sub { display: block; font-weight: 400; font-size: 17px; color: var(--text-mute); margin-top: 8px; max-width: 820px; margin-left: auto; margin-right: auto; }
   .intro { color: var(--text-mute); font-size: 16px; max-width: 780px; margin: 0 auto 40px; text-align: center; }
@@ -274,8 +313,8 @@
       <a data-view="solution" href="#solution">Solution</a>
       <a data-view="usecases" href="#usecases">Use cases</a>
       <a data-view="benefits" href="#benefits">Benefits</a>
-      <a data-view="about" href="#about">About</a>
-      <a class="cta" href="mailto:aimanian@trellis-intelligence.com?subject=Trellis%20—%20book%20a%20demo">Book a demo</a>
+      <a data-view="about" href="#about">Mission</a>
+      <a class="cta" href="#request">Book a demo</a>
     </div>
   </div>
 </nav>
@@ -287,7 +326,8 @@
     <h1 class="hero">Trellis</h1>
     <div class="hero-underline"></div>
     <p class="hero-tagline">AI for the people who have to make the call</p>
-    <p class="hero-sub">The flight dispatcher deciding which arrivals to hold or reroute tonight. The patent examiner deciding whether a claim is truly novel. The credit analyst tracing how one downgrade ripples through a company's suppliers and counterparties. The doctor piecing together a patient's full record before the visit. They already have the data — but the reasoning still happens in their heads, across systems that never talk to each other. Trellis is the missing layer: an <b>agent that goes and gets the data, connects it across every source, and answers you in plain language</b> — with the evidence attached to every claim.</p>
+    <p class="hero-sub"><b>Trellis is the reasoning layer between the data and the decision.</b> Point it at a mission and it brings every source in, connects them into one picture, and answers you in plain language — with the evidence attached to every claim.</p>
+    <p class="hero-personas">A dispatcher holding arrivals tonight. An examiner judging whether a claim is truly novel. An analyst tracing a downgrade through a supply chain. A clinician reading a full record before the visit. <b>Each already has the data — what's missing is the reasoning across it, and a record of how the answer was reached.</b></p>
     <div class="hero-agent">
       <span class="ha-step">📥&nbsp; Brings the data in</span><span class="sep">→</span>
       <span class="ha-step">🕸&nbsp; Connects it across sources</span><span class="sep">→</span>
@@ -321,12 +361,12 @@
   <div class="wrap">
     <div class="sec-eyebrow">The solution</div>
     <h2>One framework. Point it at your mission.
-      <span class="sub">Describe the mission, point at your data. Trellis drafts the ontology, you confirm it, and every source flows into one graph a reasoning agent traverses — in plain language, with a full evidence trail.</span></h2>
+      <span class="sub">Describe the mission, point at your data. Trellis stands up a reasoning layer configured to that mission — and answers in plain language, with a full evidence trail behind every claim.</span></h2>
     <div class="cap-grid">
-      <div class="cap-card"><div class="stepno">01</div><div class="k">Automated ontology</div><h3>Generated, not hand-built</h3><p>State the mission, point at the data — Trellis drafts the ontology and the expert confirms it. Days, not months of services.</p></div>
-      <div class="cap-card"><div class="stepno">02</div><div class="k">Multimodal fusion</div><h3>Any modality, one graph</h3><p>Records, documents, time-series, voice, video, imagery, sensors — fused into one graph where the cross-source relationships are the intelligence.</p></div>
-      <div class="cap-card"><div class="stepno">03</div><div class="k">Reasoning &amp; decisions</div><h3>Answers you can trust</h3><p>The agent traverses the graph for evidence; tactical decisions come from trained policies whose rule paths are inspectable.</p></div>
-      <div class="cap-card"><div class="stepno">04</div><div class="k">Provenance</div><h3>Explainability by design</h3><p>Every entity, edge, and answer carries source, timestamp, and confidence — explanations a regulator can read.</p></div>
+      <div class="cap-card"><div class="stepno">01</div><div class="k">Mission setup</div><h3>Configured, not built</h3><p>State the mission, point at the data — the domain expert reviews and signs off on the result. Days, not months of services.</p></div>
+      <div class="cap-card"><div class="stepno">02</div><div class="k">Multimodal fusion</div><h3>Any modality, one picture</h3><p>Records, documents, time-series, voice, video, imagery, sensors — brought together so the relationships <i>across</i> sources become answerable. That connective layer is the intelligence.</p></div>
+      <div class="cap-card"><div class="stepno">03</div><div class="k">Reasoning &amp; decisions</div><h3>Answers you can trust</h3><p>Ask in plain language and get an answer assembled from evidence, not recalled from a model. Where a decision is called for, the recommendation arrives with the reasoning behind it.</p></div>
+      <div class="cap-card"><div class="stepno">04</div><div class="k">Provenance</div><h3>Explainability by design</h3><p>Source, timestamp, and confidence travel with every fact and every answer — explanations a regulator can read.</p></div>
     </div>
   </div>
 </section>
@@ -338,11 +378,11 @@
   <div class="wrap">
     <div class="sec-eyebrow">Use cases</div>
     <h2>Pick who you are. Ask what they'd ask.
-      <span class="sub">Four missions running on real data today — same code, different domain. Each one below is a real person with a real question. Watch Trellis answer, source by source.</span></h2>
+      <span class="sub">Real missions on real data — same code, different domain. Each one below is a real person with a real question. Watch Trellis answer, source by source.</span></h2>
 
     <div id="domainBands"></div>
 
-    <p class="intro" style="margin-top:34px">Cybersecurity, defense multi-domain ops, space operations, and energy are ready to stand up next — each with a clear data backbone and the same architecture.</p>
+    <p class="intro" style="margin-top:34px">A fifth mission is already running on real data: <b>US bicycle supply-chain early warning</b> — trade flows, bills of material, and logistics chokepoints connected so a shock upstream (a tariff, a typhoon, a port closure) propagates into a quantified, player-specific alert instead of a headline someone has to interpret. Cybersecurity, defense multi-domain ops, space operations, and energy are ready to stand up next — each with a clear data backbone and the same architecture.</p>
   </div>
 </section>
 </div><!-- /view-usecases -->
@@ -355,18 +395,18 @@
     <h2>Cheaper, faster, better, safer
       <span class="sub">Against every platform in the conversation — deployable alongside whatever a client already runs.</span></h2>
     <div class="val-grid">
-      <div class="val-card" style="border-left-color:var(--accent)"><div class="h" style="color:var(--accent)">⚡ Faster</div><p>Mission stood up in <b>days</b> — ontology auto-drafted, confirmed by the domain expert. No multi-month deployment or engineer-led build.</p></div>
+      <div class="val-card" style="border-left-color:var(--accent)"><div class="h" style="color:var(--accent)">⚡ Faster</div><p>Mission stood up in <b>days</b> — configured to the mission, signed off by the domain expert. No multi-month deployment or engineer-led build.</p></div>
       <div class="val-card" style="border-left-color:var(--accent-3)"><div class="h" style="color:var(--accent-3)">$ Cheaper</div><p>Open-source-first stack, customer-controlled. Cost scales with <b>mission scope</b> — not an enterprise license or per-compute meter.</p></div>
       <div class="val-card" style="border-left-color:var(--accent-2)"><div class="h" style="color:var(--accent-2)">◎ Better</div><p>Records, voice, video, imagery, and sensors fused into <b>one reasoning graph</b> with tactical advisors — not dashboards or model toolkits.</p></div>
       <div class="val-card" style="border-left-color:var(--good)"><div class="h" style="color:var(--good)">🛡 Safer</div><p>Source, timestamp, and confidence on <b>every entity, edge, and answer</b> — provenance designed in from ingestion.</p></div>
     </div>
     <div class="plat-grid">
-      <div class="plat-card"><div class="nm">Enterprise decision platforms</div><div class="rep">Palantir Foundry / AIP · C3 AI</div><div class="df"><b>Trellis in days, not a deployment.</b> The mission team configures and owns it — no engineering layer, no platform license.</div></div>
-      <div class="plat-card"><div class="nm">Lakehouse &amp; ML platforms</div><div class="rep">Databricks · SAS · DataRobot</div><div class="df"><b>No build phase.</b> The expert points at data and confirms the ontology — reasoning, advisors, and audit trail come built in.</div></div>
-      <div class="plat-card"><div class="nm">Cloud data warehouses</div><div class="rep">Snowflake · BigQuery · Redshift</div><div class="df"><b>Beyond tables.</b> Voice, video, imagery, and sensors fused into one graph that reasons — not just queries.</div></div>
-      <div class="plat-card"><div class="nm">Hyperscaler AI stacks</div><div class="rep">Google Vertex · Azure AI Foundry · AWS Bedrock</div><div class="df"><b>Assembled, not a toolkit.</b> Ontology, graph, advisors, and provenance arrive working — and stay cloud-portable.</div></div>
-      <div class="plat-card"><div class="nm">Knowledge-graph platforms</div><div class="rep">Neo4j · Stardog · Ontotext</div><div class="df"><b>The graph is the engine, not the product.</b> Trellis adds everything a graph database leaves as an exercise.</div></div>
-      <div class="plat-card"><div class="nm">Defense sensor fusion</div><div class="rep">Anduril Lattice</div><div class="df"><b>One framework, any mission.</b> Aviation to health, with regulator-readable evidence on every answer.</div></div>
+      <div class="plat-card"><div class="nm">Enterprise decision platforms</div><div class="rep">The ontology platforms sold with forward-deployed engineers</div><div class="df"><b>Trellis in days, not a deployment.</b> The mission team configures and owns it — no engineering layer, no platform license.</div></div>
+      <div class="plat-card"><div class="nm">Lakehouse &amp; ML platforms</div><div class="rep">The lakehouse, legacy-analytics, and AutoML suites</div><div class="df"><b>No build phase.</b> The expert points at the data and signs off — reasoning, advisors, and audit trail come built in.</div></div>
+      <div class="plat-card"><div class="nm">Cloud data warehouses</div><div class="rep">The big cloud warehouses everyone already pays for</div><div class="df"><b>Beyond tables.</b> Voice, video, imagery, and sensors fused into one graph that reasons — not just queries.</div></div>
+      <div class="plat-card"><div class="nm">Hyperscaler AI stacks</div><div class="rep">Each hyperscaler’s own AI toolkit</div><div class="df"><b>Assembled, not a toolkit.</b> Ontology, graph, advisors, and provenance arrive working — and stay cloud-portable.</div></div>
+      <div class="plat-card"><div class="nm">Knowledge-graph platforms</div><div class="rep">The graph databases and triple-store vendors</div><div class="df"><b>The graph is the engine, not the product.</b> Trellis adds everything a graph database leaves as an exercise.</div></div>
+      <div class="plat-card"><div class="nm">Defense sensor fusion</div><div class="rep">The defense autonomy &amp; sensor-mesh newcomers</div><div class="df"><b>One framework, any mission.</b> Aviation to health, with regulator-readable evidence on every answer.</div></div>
     </div>
   </div>
 </section>
@@ -376,29 +416,54 @@
 <div class="view" id="view-about" style="display:none">
 <section>
   <div class="wrap">
-    <div class="sec-eyebrow">About</div>
-    <h2>The missing reasoning layer — built to be trusted
-      <span class="sub">Trellis Intelligence builds the layer between an organization's data and the decisions people make from it: one connected, explainable reasoning graph per mission.</span></h2>
+    <div class="sec-eyebrow">Mission</div>
+    <h2>Make every consequential answer arrive with its evidence
+      <span class="sub">What we hold ourselves to, where we work, and what is running today.</span></h2>
     <div class="about-grid">
-      <div class="about-card"><div class="k">The problem</div><p>Every organization already has the data. The reasoning across it still happens in people's heads — slowly, inconsistently, across systems that never talk to each other.</p></div>
-      <div class="about-card"><div class="k">What we build</div><p>A mission-configured agent that brings the data in, connects it across every source into one knowledge graph, and answers in plain language — with a citation on every hop.</p></div>
-      <div class="about-card"><div class="k">Why it's different</div><p>Not a dashboard, not a model toolkit, not a multi-month services build. The domain expert points at the data, confirms the ontology, and the reasoning, advisors, and audit trail come built in.</p></div>
-      <div class="about-card"><div class="k">Proof today</div><p>Four live missions on real data — aviation, patents, weather, and personal health records — running on the same code, each answer traceable to its source.</p></div>
+      <div class="about-card"><div class="k">The standard we hold</div><p>Every claim carries its source, its timestamp, and its uncertainty. If an answer can't be traced back to a record, it doesn't ship — in this work, an explanation a reviewer can't follow isn't an explanation.</p></div>
+      <div class="about-card"><div class="k">Where we work</div><p>High-consequence, regulated decisions, where being wrong is expensive and <i>the model said so</i> will not survive review: aviation safety and air-traffic modernization, federal program delivery, intellectual property, and clinical decision support.</p></div>
+      <div class="about-card"><div class="k">Who stays in control</div><p>Trellis runs in your environment, on your data — open-source-first and cloud-portable, with nothing tied to infrastructure of ours. The people who know the mission keep control of it, rather than waiting in a vendor's engineering queue.</p></div>
+      <div class="about-card"><div class="k">Where we are today</div><p>Five missions running on real data from one codebase — aviation, patents, weather, personal health records, and bicycle supply-chain risk. We are taking on a small number of design partners.</p></div>
     </div>
-    <p class="intro" style="margin-top:30px">Founder-led, with 17+ years across the FAA, MITRE, and federal program delivery — deep experience in the regulated, high-stakes environments where an answer has to arrive with its evidence.</p>
-    <div class="cta-box" style="margin-top:30px">
-      <h2>See Trellis reason over your data
-        <span class="sub">Point it at one mission — a ratings desk, a research workflow, a data feed you already own — and watch it bring the sources together and answer, with the evidence attached. A working demo on representative data, in days.</span></h2>
-      <a class="btn btn-primary" href="mailto:aimanian@trellis-intelligence.com?subject=Trellis%20—%20book%20a%20demo">Book a demo ▸</a>
+    <div class="founder-card">
+      <img class="founder-photo" src="anahita-imanian.jpg" alt="Anahita Imanian, Founder and CEO of Trellis Intelligence">
+      <div class="founder-body">
+        <div class="k">Leadership</div>
+        <h3 class="founder-name">Anahita Imanian</h3>
+        <div class="founder-role">Founder &amp; CEO</div>
+        <p><b>Trellis exists to close one gap.</b> The people who have to make the call — in a cockpit, a control room, an examining unit, an exam room — still assemble the answer themselves, out of systems that each hold only one piece of it. Anahita founded the company to do that assembly for them, and to make every answer arrive with its evidence.</p>
+        <p style="margin-top:10px">She is an aerospace engineer with 17+ years building AI for safety-critical aviation — Principal Investigator and AI lead for aviation-safety research at MITRE, and director-level delivery on one of the country's largest air-traffic modernization programs. Her training runs from aerospace engineering through a doctorate in reliability and risk engineering, and her earliest work was in autonomous flight: fusing imperfect sensors into a single decision an aircraft could act on. <b>Turning many uncertain sources into one answer you can defend has been the through-line of her whole career.</b> She has authored 17+ peer-reviewed publications with multiple best-paper awards.</p>
+        <p style="margin-top:10px">She founded Trellis on a conviction formed in certification rooms: <em>an answer you can't trace is an answer you can't use.</em></p>
+        <a class="founder-link" href="https://www.linkedin.com/in/anahita-imanian-a8072063/" target="_blank" rel="noopener">LinkedIn ↗</a>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:34px">
+      <a class="btn btn-primary" href="#request">Book a demo ▸</a>
     </div>
   </div>
 </section>
 </div><!-- /view-about -->
 
+<!-- ============ BOOK A DEMO (its own page) ============ -->
+<div class="view" id="view-request" style="display:none">
+<section>
+  <div class="wrap">
+    <div class="sec-eyebrow">Book a demo</div>
+      <h2>See Trellis reason over your data
+        <span class="sub">Point it at one mission — a ratings desk, a research workflow, a data feed you already own — and watch it bring the sources together and answer, with the evidence attached. A working demo on representative data, in days.</span></h2>
+    <div class="cta-box" style="margin-top:26px">
+      <div class="req-mount" data-prefix="r"></div>
+    </div>
+    <p class="intro" style="margin-top:26px">Prefer email? <span style="color:var(--text)">aimanian@trellis-intelligence.com</span></p>
+  </div>
+</section>
+</div><!-- /view-request -->
+
 <footer>
   <div class="wrap">
-    <p><span class="fbrand">Trellis</span> · a product of Trellis Intelligence LLC · <a href="mailto:aimanian@trellis-intelligence.com">contact</a></p>
-    <p class="fsmall">© 2026 Trellis Intelligence LLC · All rights reserved. Demos are built on real rows from the Trellis knowledge graphs (aviation, patents, weather, and personal-health-record trellises); values are pre-fetched for the web. The health demo is decision support for a clinician to review — not medical advice. Implementation specifics are discussed under engagement agreements.</p>
+    <p><span class="fbrand">Trellis</span> · a product of Trellis Intelligence LLC · <a href="#request">contact</a></p>
+    <p class="fsmall" style="margin-top:4px"><a href="#request" class="fmail" id="fMail" title="Click to copy">aimanian@trellis-intelligence.com</a></p>
+    <p class="fsmall">© 2026 Trellis Intelligence LLC · All rights reserved.</p>
   </div>
 </footer>
 
@@ -466,7 +531,7 @@
       label: 'aviation',
       eyebrow: 'Aviation · AeroSense',
       title: 'For the people getting the aircraft down safely',
-      mission: "Dispatcher, pilot, controller — ADS-B, FAA NOTAMs, NOAA weather, and live ATC voice are four systems that never talk to each other. Trellis fuses them into one briefing for one flight, every value cited.",
+      mission: "Dispatcher, pilot, controller — ADS-B, FAA NOTAMs, NOAA weather, and live ATC voice can each be pulled up today, and good tools will layer them on one map. What no one hands you is the intersection: which NOTAM actually touches this track, at this altitude, in this window. Trellis computes it and answers for one flight, every value cited.",
       qa: {
         q: "Give me the arrival advisory for Delta 1514 into JFK — and check it against what ATC actually said.",
         a: "Delta 1514 (Miami → JFK, 297 ADS-B points) is on descent. The arrival policy recommends <b>descend &amp; maintain 2,000 ft, turn heading 030</b> — and KJFK Approach was recorded saying exactly that: <i>“Delta 1514, fly heading 030, descend and maintain 2,000.”</i> ✓ The advisory matches the controller's live clearance. Runway 04/22 has an active NOTAM; the field is VFR, wind 200° @ 9 kt.",
@@ -510,7 +575,7 @@
           prov:'source: NOAA Aviation Weather Center · OBSERVED_AT_AIRPORT → KJFK' }
       ],
       verdict:'Four independent feeds. One flight. Every value cited.',
-      verdictBody:"ADS-B, FAA SWIM, NOAA weather, and live ATC voice — systems that never talk to each other — resolved into <b>one briefing for one flight</b>. The advisory isn't just produced; it's <span class='match'>verified against reality</span>.",
+      verdictBody:"Four independent feeds — ADS-B, FAA SWIM, NOAA weather, live ATC voice — joined on space, time, and altitude into <b>one briefing for one flight</b>: the intersection computed, not eyeballed. And the advisory isn't just produced; it's <span class='match'>verified against reality</span>.",
       center:{label:'DAL1514', sub:'Flight'},
       sats:[{e:'🎯',l:'advisory',c:C.blue},{e:'🎙️',l:'ATC voice',c:C.pink},{e:'📋',l:'NOTAM',c:C.gold},{e:'🌤️',l:'METAR',c:C.green},{e:'🛬',l:'KJFK',c:C.blue}]
     },
@@ -822,7 +887,7 @@
   }
 
   // ---- multi-page view routing ----
-  var VIEWS = ['home','solution','usecases','benefits','about','demo'];
+  var VIEWS = ['home','solution','usecases','benefits','about','demo','request'];
   function showView(name) {
     VIEWS.forEach(function(v){
       var el = document.getElementById('view-'+v);
@@ -851,6 +916,14 @@
     var m = h.match(/^demo\/(\w+)/);
     if (m && DEMOS[m[1]]) { showDemoView(m[1]); return; }
     if (h === 'usecases') { showView('usecases'); renderLandingBands(); return; }
+    if (h === 'request') {
+      showView('request');
+      setTimeout(function () {
+        var first = document.querySelector('#view-request input');
+        if (first) { first.focus({preventScroll: true}); }
+      }, 60);
+      return;
+    }
     if (h === 'solution' || h === 'benefits' || h === 'about') { showView(h); return; }
     showView('home');
   }
@@ -906,6 +979,176 @@
         + '</div></div>';
     }).join('');
   }
+
+  // ---- Demo request form ---------------------------------------------------
+  // Paste a form endpoint here to have submissions delivered to your inbox
+  // automatically (Formspree / Formspark / Basin / Getform all work — they give
+  // you a URL that accepts a JSON POST). Leave it '' and the form falls back to
+  // composing the email in the visitor's mail client, with a copyable transcript
+  // so nothing is lost if they have no mail app configured.
+  // Option 1 — Web3Forms (no account: enter your email at web3forms.com, they
+  //            mail you an access key). Paste the key here and you are done.
+  var FORM_ACCESS_KEY = '10b155ef-f336-4b08-b817-c45ddd999f2b';
+  // Option 2 — Formspree / Formspark / Basin / Getform: paste the POST URL here.
+  var FORM_ENDPOINT = '';
+  var CONTACT_EMAIL = 'aimanian@trellis-intelligence.com';
+
+  // The form is mounted into every .req-mount on the page (the Book a demo page
+  // today), each with its own id prefix so instances never collide.
+  function mountRequestForm(mount) {
+    var q = mount.getAttribute('data-prefix') || 'x';
+    var id = function (n) { return q + n; };
+
+    mount.innerHTML =
+      '<form class="req-form" novalidate>'
+      + '<div class="req-row">'
+      +   '<div class="req-field"><label for="' + id('Name') + '">Name</label>'
+      +     '<input id="' + id('Name') + '" type="text" autocomplete="name" required></div>'
+      +   '<div class="req-field"><label for="' + id('Email') + '">Work email</label>'
+      +     '<input id="' + id('Email') + '" type="email" autocomplete="email" required></div>'
+      + '</div>'
+      + '<div class="req-field"><label for="' + id('Org') + '">Organization</label>'
+      +   '<input id="' + id('Org') + '" type="text" autocomplete="organization"></div>'
+      + '<div class="req-field"><label for="' + id('Note') + '">What would you point Trellis at?</label>'
+      +   '<textarea id="' + id('Note') + '" placeholder="The mission, the data you already have, and the question you wish you could just ask." required></textarea></div>'
+      + '<div class="req-actions">'
+      +   '<button class="btn btn-primary" type="submit" id="' + id('Submit') + '">Request a demo \u25B8</button>'
+      +   '<span class="req-note">Goes straight to Anahita. No list, no newsletter.</span>'
+      + '</div>'
+      + '<div class="req-status" id="' + id('Status') + '"></div>'
+      + '</form>';
+
+    var form = mount.querySelector('form');
+    var statusEl = document.getElementById(id('Status'));
+    var btn = document.getElementById(id('Submit'));
+
+    function setStatus(kind, html) {
+      statusEl.className = 'req-status show ' + kind;
+      statusEl.innerHTML = html;
+    }
+    function esc(t) {
+      return String(t).replace(/[&<>"]/g, function (c) {
+        return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];
+      });
+    }
+
+    form.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+
+      var vals = {
+        name: document.getElementById(id('Name')).value.trim(),
+        email: document.getElementById(id('Email')).value.trim(),
+        organization: document.getElementById(id('Org')).value.trim(),
+        note: document.getElementById(id('Note')).value.trim()
+      };
+
+      var bad = false;
+      [[id('Name'), vals.name], [id('Email'), vals.email], [id('Note'), vals.note]].forEach(function (pair) {
+        var field = document.getElementById(pair[0]).parentNode;
+        var empty = !pair[1];
+        field.classList.toggle('bad', empty);
+        if (empty) { bad = true; }
+      });
+      if (vals.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(vals.email)) {
+        document.getElementById(id('Email')).parentNode.classList.add('bad');
+        bad = true;
+      }
+      if (bad) {
+        setStatus('err', 'Please add your name, a valid email, and a line about what you would point Trellis at.');
+        return;
+      }
+
+      var body = 'Name: ' + vals.name + '\n'
+               + 'Email: ' + vals.email + '\n'
+               + 'Organization: ' + (vals.organization || '—') + '\n\n'
+               + 'What they would point Trellis at:\n' + vals.note + '\n';
+
+      // Path A — a real endpoint is configured: POST it, nothing leaves the page.
+      var url = FORM_ACCESS_KEY ? 'https://api.web3forms.com/submit' : FORM_ENDPOINT;
+      if (url) {
+        var payload = FORM_ACCESS_KEY
+          ? {access_key: FORM_ACCESS_KEY, subject: 'Trellis demo request — ' + (vals.organization || vals.name),
+             from_name: vals.name, name: vals.name, email: vals.email,
+             organization: vals.organization || '—', note: vals.note}
+          : vals;
+        btn.disabled = true;
+        btn.textContent = 'Sending…';
+        // Web3Forms rejects the CORS preflight that a JSON content-type triggers,
+        // so send it as form data — a "simple" request with no preflight. A custom
+        // endpoint (Formspree et al.) takes JSON as normal.
+        var opts;
+        if (FORM_ACCESS_KEY) {
+          var fd = new FormData();
+          Object.keys(payload).forEach(function (k) { fd.append(k, payload[k]); });
+          opts = {method: 'POST', body: fd};
+        } else {
+          opts = {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+            body: JSON.stringify(payload)
+          };
+        }
+        fetch(url, opts).then(function (r) {
+          if (!r.ok) { throw new Error('HTTP ' + r.status); }
+          form.reset();
+          setStatus('ok', '<b>Thank you — that reached Anahita.</b> You will hear back within one business day.');
+        }).catch(function () {
+          setStatus('err', 'That did not send. Email it directly to <a href="mailto:' + CONTACT_EMAIL + '">' + CONTACT_EMAIL + '</a> and it will get there.');
+        }).then(function () {
+          btn.disabled = false;
+          btn.textContent = 'Request a demo \u25B8';
+        });
+        return;
+      }
+
+      // Path B — no endpoint configured: hand off to the visitor's mail app and
+      // say plainly that nothing has been sent yet, with a one-click copy.
+      var href = 'mailto:' + CONTACT_EMAIL
+               + '?subject=' + encodeURIComponent('Trellis demo request — ' + (vals.organization || vals.name))
+               + '&body=' + encodeURIComponent(body);
+      window.location.href = href;
+      setStatus('ok',
+        '<b>Almost — this has not been sent yet.</b> Your mail app should have opened with the'
+        + ' request ready to send. If it did not, copy it below and email it to '
+        + '<a href="mailto:' + CONTACT_EMAIL + '">' + CONTACT_EMAIL + '</a>.'
+        + '<textarea readonly id="' + id('Copy') + '" onclick="this.select()">' + esc(body) + '</textarea>'
+        + '<div class="req-actions" style="margin-top:10px">'
+        +   '<button type="button" class="btn btn-ghost" id="' + id('CopyBtn') + '">Copy request</button>'
+        +   '<a class="req-note" href="' + href + '">or reopen your mail app</a>'
+        + '</div>');
+      var cb = document.getElementById(id('CopyBtn'));
+      if (cb) {
+        cb.addEventListener('click', function () {
+          var ta = document.getElementById(id('Copy'));
+          ta.select();
+          var done = false;
+          try { done = document.execCommand('copy'); } catch (e) { done = false; }
+          if (navigator.clipboard) { navigator.clipboard.writeText(body).catch(function(){}); done = true; }
+          cb.textContent = done ? 'Copied \u2713' : 'Press \u2318C to copy';
+        });
+      }
+    });
+  }
+
+  Array.prototype.forEach.call(document.querySelectorAll('.req-mount'), mountRequestForm);
+
+  // Footer address: copy on click rather than firing a mailto that goes nowhere
+  // on a machine with no mail client. Falls through to the demo page on failure.
+  (function () {
+    var mail = document.getElementById('fMail');
+    if (!mail) { return; }
+    mail.addEventListener('click', function (ev) {
+      var addr = mail.textContent.trim();
+      var copied = false;
+      if (navigator.clipboard) { navigator.clipboard.writeText(addr).catch(function () {}); copied = true; }
+      if (copied) {
+        ev.preventDefault();
+        var was = mail.textContent;
+        mail.textContent = 'Copied \u2713  ' + was;
+        setTimeout(function () { mail.textContent = was; }, 1800);
+      }
+    });
+  })();
 
   // route on load and whenever the hash changes (back/forward works)
   renderLandingBands();
