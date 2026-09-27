@@ -312,6 +312,7 @@
     <div class="navlinks">
       <a data-view="solution" href="#solution">Solution</a>
       <a data-view="usecases" href="#usecases">Use cases</a>
+      <a data-view="services" href="#services">Services</a>
       <a data-view="benefits" href="#benefits">Benefits</a>
       <a data-view="about" href="#about">Mission</a>
       <a class="cta" href="#request">Book a demo</a>
@@ -343,11 +344,12 @@
 <section>
   <div class="wrap">
     <div class="sec-eyebrow">Explore</div>
-    <h2>Four ways in
+    <h2>Five ways in
       <span class="sub">Each part of Trellis is its own page — start wherever your question lives.</span></h2>
     <div class="explore-grid">
       <a class="explore-card" href="#solution"><div class="xi">🧩</div><div class="xt">Solution</div><div class="xd">How Trellis turns your data into one reasoning graph — in four steps.</div><span class="xarr">Open →</span></a>
       <a class="explore-card" href="#usecases"><div class="xi">💬</div><div class="xt">Use cases</div><div class="xd">Aviation, patents, weather, health — real questions, cited answers.</div><span class="xarr">Open →</span></a>
+      <a class="explore-card" href="#services"><div class="xi">🤝</div><div class="xt">Services</div><div class="xd">Pilots, integration, custom agents, and AI-assurance advisory.</div><span class="xarr">Open →</span></a>
       <a class="explore-card" href="#benefits"><div class="xi">⚖️</div><div class="xt">Benefits</div><div class="xd">Why Trellis is cheaper, faster, better and safer than the alternatives.</div><span class="xarr">Open →</span></a>
       <a class="explore-card" href="#about"><div class="xi">🧭</div><div class="xt">About</div><div class="xd">The company, the mission, and how to bring Trellis to your data.</div><span class="xarr">Open →</span></a>
     </div>
@@ -386,6 +388,39 @@
   </div>
 </section>
 </div><!-- /view-usecases -->
+
+<!-- ============ SERVICES (how to engage) ============ -->
+<div class="view" id="view-services" style="display:none">
+<section>
+  <div class="wrap">
+    <div class="sec-eyebrow">Services</div>
+    <h2>Start with a pilot, not a platform purchase
+      <span class="sub">Every engagement begins as one mission on your own data, scoped to a question you already care about. You see a working answer with its evidence before you commit to anything larger.</span></h2>
+
+    <div class="cap-grid">
+      <div class="cap-card"><div class="stepno">01</div><div class="k">Pilot project</div><h3>One mission, working, in weeks</h3><p>Fixed scope and fixed fee. We stand up a single mission on representative data and hand you a working system that answers real questions with citations — not a slide deck about one.</p></div>
+      <div class="cap-card"><div class="stepno">02</div><div class="k">Data integration</div><h3>Your sources, connected</h3><p>Records, documents, time-series, voice, imagery, sensors and live feeds brought into one connected picture — including standards-based clinical data, so the sources you already own become answerable together.</p></div>
+      <div class="cap-card"><div class="stepno">03</div><div class="k">Mission configuration</div><h3>Shaped to your domain</h3><p>The reasoning layer is configured to how your field actually thinks, and your own domain expert reviews and signs off on it before anything is trusted. That review is the product, not a formality.</p></div>
+      <div class="cap-card"><div class="stepno">04</div><div class="k">Custom agents</div><h3>Built against your data</h3><p>Question-answering, monitoring and advisory agents that work off your connected sources, in plain language, with a citation behind every claim they make.</p></div>
+    </div>
+
+    <div class="about-grid" style="margin-top:16px">
+      <div class="about-card"><div class="k">AI assurance &amp; advisory</div><p>Evaluation, explainability, robustness and risk frameworks for AI in regulated settings — model and LLM evaluation, governance review, and readiness assessment. This is the work Anahita led for federal aviation and defense sponsors, applied to your program whether or not you ever run Trellis.</p></div>
+      <div class="about-card"><div class="k">How engagements run</div><p>A scoping call to pick the one question worth answering. A pilot measured in weeks, on your infrastructure, with your team watching it get built. Then a decision — continue, extend to a second mission, or stop. You keep what was built either way.</p></div>
+    </div>
+
+    <div class="cta-box" style="margin-top:34px;text-align:left">
+      <div class="sec-eyebrow" style="text-align:left">Where we are focused now</div>
+      <h2 style="text-align:left;font-size:24px">Healthcare
+        <span class="sub" style="margin-left:0;text-align:left">A patient's record is spread across sections no one reads end to end, and the reasoning across it — why am I on this, what was never followed up, what interacts with what — still falls to whoever has the least time. Trellis connects conditions, labs, medications and reports into one reasoning trace and flags the intersections for a clinician to review, with every fact cited to the source record.</span></h2>
+      <p class="req-note" style="display:block;margin-top:14px;max-width:760px">Working today against standards-based records (SMART-on-FHIR and C-CDA), so a pilot can start on synthetic or de-identified data immediately and move to live records once the appropriate agreements are in place. Decision support for clinician review — not medical advice, and not a diagnostic device.</p>
+      <div style="margin-top:20px"><a class="btn btn-primary" href="#request">Book a pilot conversation ▸</a></div>
+    </div>
+
+    <p class="intro" style="margin-top:34px">Aerospace and aviation, and economic and supply-chain intelligence, run on the same platform and the same engagement model — see <a href="#usecases" style="color:var(--accent)">Use cases</a> for working examples in each.</p>
+  </div>
+</section>
+</div><!-- /view-services -->
 
 <!-- ============ BENEFITS (why trellis) ============ -->
 <div class="view" id="view-benefits" style="display:none">
@@ -887,7 +922,7 @@
   }
 
   // ---- multi-page view routing ----
-  var VIEWS = ['home','solution','usecases','benefits','about','demo','request'];
+  var VIEWS = ['home','solution','usecases','services','benefits','about','demo','request'];
   function showView(name) {
     VIEWS.forEach(function(v){
       var el = document.getElementById('view-'+v);
@@ -924,7 +959,7 @@
       }, 60);
       return;
     }
-    if (h === 'solution' || h === 'benefits' || h === 'about') { showView(h); return; }
+    if (h === 'solution' || h === 'services' || h === 'benefits' || h === 'about') { showView(h); return; }
     showView('home');
   }
 
