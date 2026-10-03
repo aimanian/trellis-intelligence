@@ -421,13 +421,13 @@
 
     <div class="cta-box" style="margin-top:34px;text-align:left">
       <div class="sec-eyebrow" style="text-align:left">Where we are focused now</div>
-      <h2 style="text-align:left;font-size:24px">Healthcare
-        <span class="sub" style="margin-left:0;text-align:left">A patient's record is spread across sections no one reads end to end, and the reasoning across it — why am I on this, what was never followed up, what interacts with what — still falls to whoever has the least time. Trellis connects conditions, labs, medications and reports into one reasoning trace and flags the intersections for a clinician to review, with every fact cited to the source record.</span></h2>
-      <p class="req-note" style="display:block;margin-top:14px;max-width:760px">Working today against standards-based records (SMART-on-FHIR and C-CDA), so a pilot can start on synthetic or de-identified data immediately and move to live records once the appropriate agreements are in place. Decision support for clinician review — not medical advice, and not a diagnostic device.</p>
+      <h2 style="text-align:left;font-size:24px">Trade &amp; supply-chain intelligence
+        <span class="sub" style="margin-left:0;text-align:left">Tariff notices, customs records, world trade statistics and port data are all public and all separate. What none of them tells you is where your own exposure actually sits — which part, from which country, through which port, and whether anyone else could make it. Trellis connects the bill of materials to the trade flows to the policy notices, so a shock upstream becomes a quantified, player-specific alert instead of a headline someone has to interpret.</span></h2>
+      <p class="req-note" style="display:block;margin-top:14px;max-width:760px">Working today on entirely public sources — US Census customs data at tariff-line detail, UN Comtrade, the Harvard Atlas of Economic Complexity, the Federal Register and the CPSC recall register — so a pilot can start immediately with no data-sharing agreement, then extend onto your own bills of material and supplier lists.</p>
       <div style="margin-top:20px"><a class="btn btn-primary" href="#request">Book a pilot conversation ▸</a></div>
     </div>
 
-    <p class="intro" style="margin-top:34px">Aerospace and aviation, and economic and supply-chain intelligence, run on the same platform and the same engagement model — see <a href="#usecases" style="color:var(--accent)">Use cases</a> for working examples in each.</p>
+    <p class="intro" style="margin-top:34px">Aerospace and aviation, patent and IP reasoning, and weather-model evaluation run on the same platform and the same engagement model — see <a href="#usecases" style="color:var(--accent)">Use cases</a> for working examples in each.</p>
   </div>
 </section>
 </div><!-- /view-services -->
@@ -476,9 +476,11 @@
         <div class="k">Leadership</div>
         <h3 class="founder-name">Anahita Imanian</h3>
         <div class="founder-role">Founder &amp; CEO</div>
-        <p><b>Trellis exists to close one gap.</b> The people who have to make the call — in a cockpit, a control room, an examining unit, an exam room — still assemble the answer themselves, out of systems that each hold only one piece of it. Anahita founded the company to do that assembly for them, and to make every answer arrive with its evidence.</p>
-        <p style="margin-top:10px">She is an aerospace engineer with 17+ years building AI for safety-critical aviation, including as Principal Investigator and AI lead for aviation-safety research at MITRE. Her training spans aerospace engineering and reliability and risk engineering, through the doctoral level in both. <b>Turning many uncertain sources into one answer you can defend has been the through-line of her whole career.</b> She has authored 17+ peer-reviewed publications with multiple best-paper awards.</p>
-        <p style="margin-top:10px">She founded Trellis on a conviction formed in certification rooms: <em>an answer you can't trace is an answer you can't use.</em></p>
+        <p>Trellis exists to close one gap: the people making consequential decisions often have the data they need, but that data is fragmented across systems, formats, and sources. Anahita founded Trellis to connect those pieces into a coherent picture — and to make every answer traceable to the evidence behind it.</p>
+        <p style="margin-top:10px">An aerospace engineer and AI leader, Anahita brings nearly two decades of experience spanning safety-critical systems, artificial intelligence, autonomous systems, risk analysis, and complex data integration. She has served as a Principal Investigator and technical leader on large-scale AI and aerospace programs, leading multidisciplinary teams developing AI for environments where reliability, explainability, and trust matter.</p>
+        <p style="margin-top:10px">She holds a PhD in Reliability and Risk Engineering, with doctoral-level training in Aerospace Engineering, and has authored more than 17 peer-reviewed publications, including research recognized with multiple best-paper awards.</p>
+        <p style="margin-top:10px">Across her work, one challenge has remained constant: turning fragmented, uncertain information into decisions people can understand, verify, and defend.</p>
+        <p style="margin-top:10px">That principle became the foundation of Trellis: <em>an answer you cannot trace is an answer you cannot trust.</em></p>
         <a class="founder-link" href="https://www.linkedin.com/in/anahita-imanian-a8072063/" target="_blank" rel="noopener">LinkedIn ↗</a>
       </div>
     </div>
@@ -727,6 +729,51 @@
       sats:[{e:'🛰️',l:'Aurora',c:C.blue},{e:'🛰️',l:'Pangu',c:C.pink},{e:'🛰️',l:'Prithvi',c:C.gold},{e:'📡',l:'METAR',c:C.green},{e:'🔬',l:'ERA5',c:C.blue}]
     },
 
+    trade: {
+      bar: 'trellis \u00b7 trade & supply-chain trellis \u00b7 Ask agent',
+      fig: {src:'', cap:''},
+      label: 'trade',
+      eyebrow: 'Trade \u00b7 Supply-chain early warning',
+      title: 'For the people who have to find the chokepoint first',
+      mission: "Tariff notices, customs data, world trade statistics and port records are all public \u2014 and all separate. What none of them tells you is where your own exposure actually sits: which part, from which country, through which port, and whether anyone else could make it. Trellis connects the bill of materials to the trade flows to the policy notices, and answers for one component, every figure cited.",
+      qa: {
+        q: "Which single country failure would hurt US bicycle supply most \u2014 and is it the part I'd expect?",
+        a: "Not the frame. <b>Derailleurs</b>: Taiwan 64.6% and Japan 25.9% \u2014 <b>91% from two countries</b> that share a typhoon basin and a seismic region, so they are one failure mode, not two. Concentration HHI <b>0.487</b> across just 17 suppliers, and a derailleur is stop-ship: no derailleur, no sellable bike. Qualifying an alternate supplier takes <b>365 days</b>.",
+        chips: ["TWN 64.6% + JPN 25.9%","HHI 0.487","stop-ship","365d to qualify"],
+        prov: "US Census HS10 \u00b7 UN Comtrade \u00b7 Atlas of Economic Complexity \u00b7 USITC tariff lines"
+      },
+      q: "Which single country failure would hurt US bicycle supply most, and why \u2014 trace it from the raw commodity up to the finished bike.",
+      qshowLead: "A live mission on public data \u2014 1,051 monthly US Census customs files, 264 UN Comtrade pulls, the Harvard Atlas, every Federal Register tariff notice since 2018 and the CPSC recall register, connected into one graph.",
+      groups: [
+        { t:'Where is the risk', i:'\ud83c\udf0d', c:C.blue, qs:[
+          "Rank every bicycle component by origin concentration \u2014 show value, top-two share and the suppliers behind each.",
+          "Which parts are both stop-ship and sourced from one country? Those are the single points of failure.",
+          "Compare the concentration of finished bicycles against the components inside them \u2014 does the finished-goods view understate the real exposure?" ] },
+        { t:'Trace the chain', i:'\ud83d\udd17', c:C.pink, qs:[
+          {t:"Which single country failure would hurt US bicycle supply most, and why \u2014 trace it from the raw commodity up to the finished bike.", flag:true},
+          "Walk the bill of materials from electricity up to a finished bicycle \u2014 where does the largest single input share sit?",
+          "Which raw commodities feed the most components once you traverse the whole bill of materials?" ] },
+        { t:'Watch for shocks', i:'\u26a0\ufe0f', c:C.gold, qs:[
+          "Which tariff notices in the last 90 days actually touch my supply nodes \u2014 and which ones name both a country and a product?",
+          "Rank US entry ports by the value landing through them. What would a West Coast port closure take out?",
+          "Which named firms import these parts, from which countries, and what have they recalled?" ] }
+      ],
+      steps: [
+        { c:C.blue, icon:'\ud83e\uddfe', k:'1 \u00b7 Trade data \u2014 Census, Comtrade, Atlas', title:'Public statistics, connected into supply nodes',
+          body:'Every monthly US customs record for the sector at 10-digit tariff detail, plus world trade flows and the Harvard Atlas: <b>29,206 trade flows</b> resolved into <b>1,677 supply nodes</b> \u2014 each one a (product, tier, country) triple with its own concentration score.',
+          chips:['1,051 Census files','264 Comtrade pulls','215 countries','41 entry ports'], prov:'source: US Census HS10 \u00b7 UN Comtrade \u00b7 Atlas of Economic Complexity' },
+        { c:C.pink, icon:'\ud83d\udd29', k:'2 \u00b7 Bill of materials \u2014 the linkage', title:'What trade statistics alone can never tell you',
+          body:'An expert-authored bill of materials links <b>31 products across four tiers</b> by weighted dependency \u2014 input share, lead time, criticality and the time it takes to qualify an alternate supplier. Without it the trade data is a pile of statistics, not a network.<div class="chips"><span class="chip">83 weighted links</span><span class="chip">T0 bike \u2192 T3 commodity</span><span class="chip">stop-ship flags</span></div>',
+          prov:'source: curated tiered BOM \u00b7 reified as BomLink nodes carrying the weights' },
+        { c:C.gold, icon:'\ud83c\udfaf', k:'3 \u00b7 The granularity that changes the answer', title:'HS6 hides the risk; HS10 reveals it',
+          body:'At the six-digit level derailleurs are invisible \u2014 buried in an \u201cother parts\u201d basket showing 52 suppliers and HHI 0.404. The ten-digit line shows the truth: <b>17 suppliers, HHI 0.487, 91% from two countries</b>. The same pull corrected bicycle chain from $212.8M to <b>$17.6M</b> \u2014 a 12\u00d7 overstatement, because the broad line is mostly industrial chain.<div class="chips"><span class="chip">basket: 52 suppliers</span><span class="chip">actual: 17</span><span class="chip">chain 12\u00d7 corrected</span></div>',
+          prov:'source: US Census HS10 \u00b7 USITC tariff schedule \u00b7 apportionment by named tariff line' }
+      ],
+      verdict:'The chokepoint is the drivetrain \u2014 and it was invisible one level up.',
+      verdictBody:'Finished bicycles look comfortably diversified. The parts inside them are not: Taiwan and Japan hold <b>91% of derailleurs</b>, they are stop-ship, and they take a year to re-source. Trellis found it by connecting the bill of materials to customs data at the granularity where the part actually exists \u2014 and <b>the same answer is wrong at the level most analyses stop at</b>.',
+      center:{label:'Derailleurs', sub:'T1 component'},
+      sats:[{e:'\ud83c\uddf9\ud83c\uddfc',l:'Taiwan 64.6%',c:C.pink},{e:'\ud83c\uddef\ud83c\uddf5',l:'Japan 25.9%',c:C.blue},{e:'\ud83d\udeb2',l:'complete bike',c:C.gold},{e:'\u26a1',l:'aluminium \u2190 energy',c:C.green}]
+    },
     health: {
       bar: 'trellis · personal-health-record trellis · Ask agent',
       fig: {src:'assets/health.png', cap:'<b>Real cardiac panel</b> from the personal health record, shown against normal clinical ranges.'},
@@ -824,6 +871,23 @@
         {f:'prithvi',t:'kjfk',l:'FORECASTS'},{f:'hrrr',t:'kjfk',l:'FORECASTS'},
         {f:'aurora',t:'metar',l:'VERIFIED_AGAINST'},{f:'aurora',t:'era5',l:'VERIFIED_AGAINST'},
         {f:'pangu',t:'metar',l:'VERIFIED_AGAINST'},{f:'pangu',t:'era5',l:'VERIFIED_AGAINST'}
+      ]
+    },
+    trade: {
+      nodes: [
+        {id:'bike', label:'Complete bicycle',  group:'Product',    c:'#1a73e8', s:30},
+        {id:'der',  label:'Derailleurs',       group:'Product',    c:'#ea4335', s:26},
+        {id:'twn',  label:'Taiwan 64.6%',      group:'Country',    c:'#f9ab00', s:24},
+        {id:'jpn',  label:'Japan 25.9%',       group:'Country',    c:'#f9ab00', s:20},
+        {id:'alu',  label:'Aluminium',         group:'Commodity',  c:'#34a853', s:18},
+        {id:'pwr',  label:'Electricity 38%',   group:'Commodity',  c:'#34a853', s:16},
+        {id:'port', label:'Los Angeles 25.7%', group:'Port',       c:'#5f6368', s:18}
+      ],
+      edges: [
+        {f:'der',t:'bike',l:'INPUT_TO 10%'},{f:'twn',t:'der',l:'SUPPLIES'},
+        {f:'jpn',t:'der',l:'SUPPLIES'},{f:'alu',t:'der',l:'INPUT_TO'},
+        {f:'pwr',t:'alu',l:'INPUT_TO 38%'},{f:'twn',t:'port',l:'ENTERS_VIA'},
+        {f:'der',t:'port',l:'LANDS_AT'}
       ]
     },
     health: {
@@ -944,9 +1008,9 @@
     });
     window.scrollTo(0, 0);
   }
-  var TAB_NAMES = { aviation:'✈️ Aviation', patents:'📄 Patents', weather:'🌤️ Weather', health:'🩺 Health' };
+  var TAB_NAMES = { aviation:'✈️ Aviation', patents:'📄 Patents', weather:'🌤️ Weather', trade:'📦 Trade', health:'🩺 Health' };
   function renderTabs(key) {
-    document.getElementById('demoTabs').innerHTML = ['aviation','patents','weather','health'].map(function(k){
+    document.getElementById('demoTabs').innerHTML = ['aviation','patents','weather','trade','health'].map(function(k){
       return '<button class="demo-tab'+(k===key?' active':'')+'" onclick="openDemo(\''+k+'\')">'+TAB_NAMES[k]+'</button>';
     }).join('');
   }
@@ -996,7 +1060,7 @@
 
   // ---- landing page: overwatch-style domain bands (image + conversational questions) ----
   function renderLandingBands() {
-    var order = ['aviation','patents','weather','health'];
+    var order = ['aviation','patents','weather','trade','health'];
     var host = document.getElementById('domainBands');
     if (!host) return;
     host.innerHTML = order.map(function(k){
