@@ -53,6 +53,31 @@
   .hero-sub b { color: var(--text); }
   .hero-personas { font-size: 15.5px; line-height: 1.66; color: var(--text-mute); max-width: 720px; margin: 16px auto 0; }
   .hero-personas b { color: var(--text); font-weight: 600; }
+  /* architecture stack */
+  .stack { max-width: 760px; margin: 40px auto 0; }
+  .stack-layer { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 22px; text-align: center; }
+  .stack-layer.core { border-color: var(--accent); border-width: 2px; background: linear-gradient(150deg, #edeeff, #ffffff); }
+  .stack-layer .sl-k { font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+  .stack-layer .sl-items { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+  .stack-layer .sl-items span { font-size: 13px; color: var(--text); background: #fff; border: 1px solid var(--border); border-radius: 100px; padding: 5px 13px; }
+  .stack-layer.core .sl-items span { font-weight: 600; border-color: rgba(0,15,175,0.25); }
+  .stack-arrow { text-align: center; color: var(--accent); font-size: 20px; line-height: 1; margin: 8px 0; }
+  /* complementary layer table */
+  .layer-grid { max-width: 820px; margin: 30px auto 0; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; background: var(--bg-card); }
+  .layer-row { display: grid; grid-template-columns: 220px 1fr; gap: 16px; padding: 14px 20px; border-bottom: 1px solid var(--border); align-items: baseline; }
+  .layer-row:last-child { border-bottom: none; }
+  .layer-row .lr-k { font-weight: 700; font-size: 14.5px; }
+  .layer-row .lr-v { font-size: 14px; color: var(--text-mute); }
+  .layer-row.trellis { background: linear-gradient(150deg, #edeeff, #ffffff); }
+  .layer-row.trellis .lr-k { color: var(--accent); }
+  .layer-row.trellis .lr-v { color: var(--text); font-weight: 500; }
+  @media (max-width: 560px) { .layer-row { grid-template-columns: 1fr; gap: 2px; } }
+  /* proven missions band */
+  .proven { max-width: 860px; margin: 26px auto 6px; text-align: center; }
+  .proven .pv-k { font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+  .proven .pv-items { display: flex; flex-wrap: wrap; gap: 9px; justify-content: center; }
+  .proven .pv-items span { font-size: 13.5px; font-weight: 600; color: var(--text); background: var(--bg-card); border: 1px solid var(--border); border-radius: 100px; padding: 7px 16px; }
+  .proven .pv-tag { margin-top: 14px; font-size: 14px; color: var(--text-mute); font-style: italic; }
   .fmail { color: var(--text-mute); text-decoration: none; border-bottom: 1px dotted var(--border); }
   .fmail:hover { color: var(--accent); border-bottom-color: var(--accent); }
   /* Demo request form */
@@ -327,12 +352,12 @@
     <h1 class="hero">Trellis</h1>
     <div class="hero-underline"></div>
     <p class="hero-tagline">AI for the people who have to make the call</p>
-    <p class="hero-sub"><b>Trellis is the reasoning layer between the data and the decision.</b> Point it at a mission and it brings every source in, connects them into one picture, and answers you in plain language — with the evidence attached to every claim.</p>
-    <p class="hero-personas">A dispatcher holding arrivals tonight. An examiner judging whether a claim is truly novel. An analyst tracing a downgrade through a supply chain. A clinician reading a full record before the visit. <b>Each already has the data — what's missing is the reasoning across it, and a record of how the answer was reached.</b></p>
+    <p class="hero-sub"><b>Trellis is the reasoning layer between your data and your decisions.</b> It connects fragmented data across systems and formats, reasons across those sources, and answers questions in plain language — with evidence behind every claim.</p>
     <div class="hero-agent">
-      <span class="ha-step">📥&nbsp; Brings the data in</span><span class="sep">→</span>
-      <span class="ha-step">🕸&nbsp; Connects it across sources</span><span class="sep">→</span>
-      <span class="ha-step">💬&nbsp; Answers in plain language, cited</span>
+      <span class="ha-step">🔗&nbsp; Connect</span><span class="sep">→</span>
+      <span class="ha-step">🧠&nbsp; Reason</span><span class="sep">→</span>
+      <span class="ha-step">🎯&nbsp; Decide</span><span class="sep">→</span>
+      <span class="ha-step">🔍&nbsp; Verify</span>
     </div>
     <div class="hero-btns">
       <a class="btn btn-primary" href="#usecases">▶  See it answer real questions</a>
@@ -365,10 +390,27 @@
     <h2>One framework. Point it at your mission.
       <span class="sub">Describe the mission, point at your data. Trellis stands up a reasoning layer configured to that mission — and answers in plain language, with a full evidence trail behind every claim.</span></h2>
     <div class="cap-grid">
-      <div class="cap-card"><div class="stepno">01</div><div class="k">Mission setup</div><h3>Configured, not built</h3><p>State the mission, point at the data — the domain expert reviews and signs off on the result. Days, not months of services.</p></div>
+      <div class="cap-card"><div class="stepno">01</div><div class="k">Mission setup</div><h3>Configured around the mission, not rebuilt for every use case</h3><p>State the mission, point at the data — the domain expert reviews and signs off on the result. The same framework serves the next mission without starting over.</p></div>
       <div class="cap-card"><div class="stepno">02</div><div class="k">Multimodal fusion</div><h3>Any modality, one picture</h3><p>Records, documents, time-series, voice, video, imagery, sensors — brought together so the relationships <i>across</i> sources become answerable. That connective layer is the intelligence.</p></div>
       <div class="cap-card"><div class="stepno">03</div><div class="k">Reasoning &amp; decisions</div><h3>Answers you can trust</h3><p>Ask in plain language and get an answer assembled from evidence, not recalled from a model. Where a decision is called for, the recommendation arrives with the reasoning behind it.</p></div>
       <div class="cap-card"><div class="stepno">04</div><div class="k">Provenance</div><h3>Explainability by design</h3><p>Source, timestamp, and confidence travel with every fact and every answer — explanations a regulator can read.</p></div>
+    </div>
+
+    <div class="stack">
+      <div class="stack-layer">
+        <div class="sl-k">Sources</div>
+        <div class="sl-items"><span>Databases</span><span>Documents</span><span>APIs</span><span>Time series</span><span>Voice</span><span>Images</span><span>Sensors</span></div>
+      </div>
+      <div class="stack-arrow">↓</div>
+      <div class="stack-layer core">
+        <div class="sl-k">Trellis reasoning layer</div>
+        <div class="sl-items"><span>Meaning</span><span>Connections</span><span>Retrieval</span><span>Agents</span><span>Models</span><span>Evidence</span></div>
+      </div>
+      <div class="stack-arrow">↓</div>
+      <div class="stack-layer">
+        <div class="sl-k">Mission intelligence</div>
+        <div class="sl-items"><span>Ask</span><span>Investigate</span><span>Monitor</span><span>Explain</span><span>Recommend</span></div>
+      </div>
     </div>
   </div>
 </section>
@@ -380,7 +422,13 @@
   <div class="wrap">
     <div class="sec-eyebrow">Use cases</div>
     <h2>Pick who you are. Ask what they'd ask.
-      <span class="sub">Real missions on real data — same code, different domain. Each one below is a real person with a real question. Watch Trellis answer, source by source.</span></h2>
+      <span class="sub">Each one below is a real person with a real question, answered on real data. Watch Trellis answer, source by source.</span></h2>
+
+    <div class="proven">
+      <div class="pv-k">Proven missions</div>
+      <div class="pv-items"><span>Aviation &amp; Aerospace</span><span>Healthcare</span><span>Intellectual Property</span><span>Weather Intelligence</span><span>Supply-Chain Intelligence</span></div>
+      <div class="pv-tag">One reasoning architecture. Different missions.</div>
+    </div>
 
     <div id="domainBands"></div>
 
@@ -394,21 +442,20 @@
 <section>
   <div class="wrap">
     <div class="sec-eyebrow">Services</div>
-    <h2>Start with a pilot, not a platform purchase
-      <span class="sub">Every engagement begins as one mission on your own data, scoped to a question you already care about. You see a working answer with its evidence before you commit to anything larger.</span></h2>
+    <h2>Deploy Trellis around one high-value mission
+      <span class="sub">Every engagement begins as a single mission on your own data, scoped to a question you already care about. You see a working answer with its evidence before committing to anything larger.</span></h2>
 
-    <div class="cap-grid">
-      <div class="cap-card"><div class="stepno">01</div><div class="k">Pilot project</div><h3>One mission, working, in weeks</h3><p>Fixed scope and fixed fee. We stand up a single mission on representative data and hand you a working system that answers real questions with citations — not a slide deck about one.</p></div>
-      <div class="cap-card"><div class="stepno">02</div><div class="k">Data integration</div><h3>Your sources, connected</h3><p>Records, documents, time-series, voice, imagery, sensors and live feeds brought into one connected picture — including standards-based clinical data, so the sources you already own become answerable together.</p></div>
-      <div class="cap-card"><div class="stepno">03</div><div class="k">Mission configuration</div><h3>Shaped to your domain</h3><p>The reasoning layer is configured to how your field actually thinks, and your own domain expert reviews and signs off on it before anything is trusted. That review is the product, not a formality.</p></div>
-      <div class="cap-card"><div class="stepno">04</div><div class="k">Custom agents</div><h3>Built against your data</h3><p>Question-answering, monitoring and advisory agents that work off your connected sources, in plain language, with a citation behind every claim they make.</p></div>
+    <div class="cap-grid" style="grid-template-columns:repeat(3,1fr)">
+      <div class="cap-card"><div class="stepno">01</div><div class="k">Mission pilot</div><h3>One mission, working</h3><p>Fixed scope and fixed fee. We stand up a single mission on representative data and hand you a working system that answers real questions with citations — not a slide deck about one. Includes connecting the sources that mission needs.</p></div>
+      <div class="cap-card"><div class="stepno">02</div><div class="k">Enterprise deployment</div><h3>Into production, in your environment</h3><p>Taking a proven mission into daily use: integration with the systems you already run, configuration for additional missions, custom agents built against your data, and the operational handover so your own team owns it.</p></div>
+      <div class="cap-card"><div class="stepno">03</div><div class="k">Specialized advisory</div><h3>Assurance, evaluation, security</h3><p>AI assurance and evaluation, explainability and risk frameworks, governance and readiness review, and adversarial testing of AI systems — red teaming for prompt injection, data leakage and agent misuse, with secure-design review. Available independently of the platform.</p></div>
     </div>
 
     <div class="about-grid" style="margin-top:16px">
-      <div class="about-card"><div class="k">AI security &amp; red teaming</div><p>Adversarial testing of AI systems before they reach production: prompt-injection, jailbreak and data-leakage testing against your models and agents, threat modeling with MITRE ATLAS, and secure agentic design — tool-use permissions, sandboxing, least privilege. Plus model-provenance and data-poisoning review across your AI supply chain.</p></div>
-      <div class="about-card"><div class="k">AI assurance &amp; advisory</div><p>Evaluation, explainability, robustness and risk frameworks for AI in regulated settings — model and LLM evaluation, governance review, and readiness assessment aligned to NIST AI RMF and aviation certification practice. This is the work Anahita led for federal aviation and defense sponsors, applied to your program whether or not you ever run Trellis.</p></div>
+      <div class="about-card"><div class="k">Who does the work</div><p>Led by practitioners with extensive experience developing, evaluating and assuring AI for safety-critical and regulated environments — where an answer has to arrive with its evidence and survive review.</p></div>
       <div class="about-card"><div class="k">Built to be defensible</div><p>The same discipline runs through the platform itself. Every answer arrives with the evidence behind it, access stays scoped to what the work actually requires, and your data stays inside your boundary — so a reviewer, or a regulator, can follow how an answer was reached instead of taking anyone's word for it.</p></div>
       <div class="about-card"><div class="k">How engagements run</div><p>A scoping call to pick the one question worth answering. A pilot measured in weeks, on your infrastructure, with your team watching it get built. Then a decision — continue, extend to a second mission, or stop. You keep what was built either way.</p></div>
+      <div class="about-card"><div class="k">What you keep</div><p>The mission configuration, the connected sources and the answers it produces are yours. Nothing is locked to infrastructure of ours, and nothing stops working if an engagement ends.</p></div>
     </div>
 
     <h2 style="margin-top:46px">How you run it
@@ -429,22 +476,25 @@
 <section class="alt" id="why">
   <div class="wrap">
     <div class="sec-eyebrow">Benefits</div>
-    <h2>Cheaper, faster, better, safer
-      <span class="sub">Against every platform in the conversation — deployable alongside whatever a client already runs.</span></h2>
+    <h2>Connected. Explainable. Deployable. Controlled.
+      <span class="sub">What Trellis adds to the systems you already run — and why it fits alongside them rather than instead of them.</span></h2>
     <div class="val-grid">
-      <div class="val-card" style="border-left-color:var(--accent)"><div class="h" style="color:var(--accent)">⚡ Faster</div><p>Mission stood up in <b>days</b> — configured to the mission, signed off by the domain expert. No multi-month deployment or engineer-led build.</p></div>
-      <div class="val-card" style="border-left-color:var(--accent-3)"><div class="h" style="color:var(--accent-3)">$ Cheaper</div><p>Open-source-first stack, customer-controlled. Cost scales with <b>mission scope</b> — not an enterprise license or per-compute meter.</p></div>
-      <div class="val-card" style="border-left-color:var(--accent-2)"><div class="h" style="color:var(--accent-2)">◎ Better</div><p>Records, voice, video, imagery and sensors <b>answered together</b>, with a recommendation where a decision is needed — not dashboards or model toolkits.</p></div>
-      <div class="val-card" style="border-left-color:var(--good)"><div class="h" style="color:var(--good)">🛡 Safer</div><p>Source, timestamp and confidence behind <b>every answer</b> — evidence designed in from the start, not added afterwards.</p></div>
+      <div class="val-card" style="border-left-color:var(--accent)"><div class="h" style="color:var(--accent)">◍ Connected</div><p>Structured and unstructured information becomes <b>one reasoning context</b> — records, documents, time series, voice, imagery and sensors read together rather than one system at a time.</p></div>
+      <div class="val-card" style="border-left-color:var(--accent-3)"><div class="h" style="color:var(--accent-3)">◎ Explainable</div><p>Every conclusion stays attached to its <b>source, timestamp, context and uncertainty</b> — an answer a reviewer can follow back to the record it came from.</p></div>
+      <div class="val-card" style="border-left-color:var(--accent-2)"><div class="h" style="color:var(--accent-2)">⚡ Deployable</div><p>Configure Trellis around a mission <b>instead of assembling a collection of AI tools</b> — and serve the next mission without starting the build again.</p></div>
+      <div class="val-card" style="border-left-color:var(--good)"><div class="h" style="color:var(--good)">🛡 Controlled</div><p>Runs <b>inside your environment</b>, with control over data, models, infrastructure and access — nothing tied to infrastructure of ours.</p></div>
     </div>
-    <div class="plat-grid">
-      <div class="plat-card"><div class="nm">Enterprise decision platforms</div><div class="rep">The ontology platforms sold with forward-deployed engineers</div><div class="df"><b>Trellis in days, not a deployment.</b> The mission team configures and owns it — no engineering layer, no platform license.</div></div>
-      <div class="plat-card"><div class="nm">Lakehouse &amp; ML platforms</div><div class="rep">The lakehouse, legacy-analytics, and AutoML suites</div><div class="df"><b>No build phase.</b> Your expert points at the data and signs off — the reasoning and the evidence trail come ready to use.</div></div>
-      <div class="plat-card"><div class="nm">Cloud data warehouses</div><div class="rep">The big cloud warehouses everyone already pays for</div><div class="df"><b>Beyond tables.</b> Voice, video, imagery and sensors answered together, in plain language — not just queried.</div></div>
-      <div class="plat-card"><div class="nm">Hyperscaler AI stacks</div><div class="rep">Each hyperscaler’s own AI toolkit</div><div class="df"><b>Assembled, not a toolkit.</b> It arrives working rather than as parts to integrate — and stays portable across clouds.</div></div>
-      <div class="plat-card"><div class="nm">Knowledge-graph platforms</div><div class="rep">The graph databases and triple-store vendors</div><div class="df"><b>A database is not an answer.</b> Trellis delivers the part these leave you to build yourself.</div></div>
-      <div class="plat-card"><div class="nm">Defense sensor fusion</div><div class="rep">The defense autonomy &amp; sensor-mesh newcomers</div><div class="df"><b>One framework, any mission.</b> Aviation to health, with regulator-readable evidence on every answer.</div></div>
+
+    <h2 style="margin-top:50px">It works with what you already own
+      <span class="sub">Trellis doesn't replace your data platform. It makes the information already inside it usable for reasoning and decisions.</span></h2>
+    <div class="layer-grid">
+      <div class="layer-row"><div class="lr-k">Data warehouses</div><div class="lr-v">store and query</div></div>
+      <div class="layer-row"><div class="lr-k">Lakehouses</div><div class="lr-v">manage and analyze</div></div>
+      <div class="layer-row"><div class="lr-k">Graph databases</div><div class="lr-v">connect relationships</div></div>
+      <div class="layer-row"><div class="lr-k">AI platforms</div><div class="lr-v">provide models and tooling</div></div>
+      <div class="layer-row trellis"><div class="lr-k">Trellis</div><div class="lr-v">connects these around a mission and produces evidence-backed answers</div></div>
     </div>
+    <p class="intro" style="margin-top:30px">Most teams we talk to have already invested in several of the layers above. Trellis sits on top of that investment and turns it into answers people can act on — it does not ask anyone to replace it.</p>
   </div>
 </section>
 </div><!-- /view-benefits -->
